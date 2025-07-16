@@ -2,164 +2,214 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gr Fast - Conteúdos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>oRee Scripter - Scripts</title>
+  <link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1320005895219974184/1381430895944401027/Swift.png?ex=68477d47&is=68462bc7&hm=0c14ddec327f341585b502a81b71c7c6fde41e5e0ab82eb55a2178770f18667f&=&format=png&quality=lossless">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* Reset básico */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #1a0a3d; /* Roxo escuro */
-      color: #ddd;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 60px 20px 20px;
-    }
-
-    header {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #cfa5ff;
-      font-weight: 700;
-      text-shadow: 0 0 10px #7b4cff;
-    }
-
-    /* Botões */
-    .btn {
-      background: linear-gradient(90deg, #7b4cff 0%, #3c67e3 100%);
-      color: white;
-      border: none;
-      border-radius: 9px;
-      padding: 0.8em 2em;
-      margin: 0 10px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 2px 12px 0 #7b4cff55;
-      transition: filter 0.15s;
-    }
-
-    .btn:hover {
-      filter: brightness(1.2);
-    }
-
-    /* Botão Voltar fixo */
-    #btnVoltar {
-      position: fixed;
-      top: 24px;
-      left: 24px;
-      z-index: 1000;
-      padding: 0.7em 1.5em;
-      font-size: 1rem;
-      font-family: inherit;
-      font-weight: 700;
-      border: none;
-      border-radius: 9px;
-      background: linear-gradient(90deg, #7b4cff 0%, #3c67e3 100%);
-      color: #fff;
-      box-shadow: 0 2px 12px 0 #7b4cff55;
-      cursor: pointer;
-      transition: filter 0.15s;
-      display: none; /* Começa oculto, só aparece quando conteúdo está aberto */
-    }
-
-    #btnVoltar:hover {
-      filter: brightness(1.2);
-    }
-
-    /* Container dos botões principais */
-    #btnContainer {
-      margin-bottom: 20px;
-    }
-
-    /* Texto inicial */
-    #textoInicial {
-      font-size: 1.25rem;
-      color: #cfa5ff;
-      margin-bottom: 30px;
-      text-align: center;
-      text-shadow: 0 0 8px #7b4cffaa;
-    }
-
-    /* Iframe conteúdo */
-    #conteudoFrame {
-      width: 100%;
-      max-width: 960px;
-      height: 600px;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #7b4cff88;
-      background: #2a1a5d;
-      display: none; /* Começa oculto */
-    }
-
-    /* Responsivo simples */
-    @media (max-width: 700px) {
-      #conteudoFrame {
-        height: 400px;
-      }
-      #btnContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      .btn {
-        margin: 8px 0;
-        width: 80%;
-      }
-    }
+    /* Todo seu CSS já está aqui */
+    /* (Mantive o CSS do seu original para não perder) */
+    :root { --primary: #0a0e16; --surface: #161b22; --accent: #5ddcff; --accent-gradient: linear-gradient(90deg, #5ddcff 0%, #3c67e3 100%); --card-glow: 0 0 16px 0 #5ddcff44, 0 4px 32px 0 #1e293b50; --text-main: #f5f7fa; --text-muted: #a3b1c6; --card-radius: 16px; --button-radius: 8px; --shadow: 0 2px 14px 0 #0008; --header-height: 4.5rem; --transition: 0.19s cubic-bezier(.4,0,.2,1); --sidebar-width: 210px; --sidebar-bg: #121824; --sidebar-border: #232d3d; --sidebar-active: #232d3d;}
+    html, body { margin: 0; padding: 0; font-family: 'Montserrat', Arial, sans-serif; background: var(--primary); color: var(--text-main); min-height: 100vh; scroll-behavior: smooth; }
+    body { background: radial-gradient(ellipse at 50% 0, #191f2b 60%, #0a0e16 100%); min-height: 100vh; display: flex; flex-direction: column; }
+    header { display: flex; flex-direction: column; align-items: center; background: var(--surface); border-bottom: 1px solid #222b3a; padding: 2.2rem 1rem 1.7rem 1rem; z-index: 9; box-shadow: 0 2px 24px 0 #0003; }
+    .brand { font-size: 2.6rem; font-weight: 700; letter-spacing: .04em; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent; margin: 0 0 1.4rem 0; user-select: none; text-align: center; width: 100%; }
+    .social-buttons { display: flex; gap: 1rem; margin-top: 1.3rem; flex-wrap: wrap; justify-content: center; width: 100%; }
+    .social-btn { display: flex; align-items: center; justify-content: center; background: #222a38; border: none; border-radius: var(--button-radius); padding: 0.6rem 1.1rem; color: var(--accent); font-size: 1.25rem; font-weight: 600; text-decoration: none; box-shadow: 0 2px 10px 0 #0003; transition: background .17s, color .17s, box-shadow .17s, transform .12s; cursor: pointer; outline: none; gap: .7em; min-width: 52px; border: 1.5px solid #2e445e; position: relative; }
+    .social-btn:hover, .social-btn:focus { background: var(--accent-gradient); color: #fff; box-shadow: 0 4px 24px 0 #5ddcff55; transform: translateY(-2px) scale(1.045); border-color: #5ddcff99; }
+    .main-container { display: flex; flex: 1 1 0%; min-height: 0; min-width: 0; }
+    main { flex: 1 1 0%; max-width: 1180px; margin: 2.4rem auto 0 auto; padding: 0 1rem; min-width: 0; width: 100%; transition: margin-left 0.2s; }
+    #search-container { width: 100%; max-width: 400px; display: flex; align-items: center; justify-content: center; margin: 0 0 1.3rem 0; }
+    #search-box { width: 100%; border-radius: var(--button-radius); border: 1.5px solid #2e445e; background: #111622; color: var(--text-main); padding: 0.62rem 1.1rem; font-size: 1.07rem; font-family: inherit; transition: border-color .17s; box-shadow: 0 3px 10px 0 #0002; margin-right: 0.5rem; }
+    #search-box:focus { outline: none; border-color: #5ddcff; background: #191f2b; }
+    #search-btn { background: var(--accent-gradient); border-radius: var(--button-radius); border: none; color: #fff; font-family: inherit; font-size: 1.07rem; font-weight: 600; padding: 0.62rem 1.3rem; cursor: pointer; transition: background .16s; box-shadow: 0 2px 8px 0 #5ddcff33; display: flex; align-items: center; justify-content: center; gap: 0.4em; }
+    #search-btn:hover, #search-btn:focus { background: linear-gradient(90deg, #3c67e3 0%, #5ddcff 100%); outline: none; }
+    .search-icon { width: 1.1em; height: 1.1em; fill: currentColor; margin-bottom: -2px; }
+    #grid-view { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 2.1rem; padding: 1.5rem 0; animation: fadeIn 0.5s; }
+    .card { background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-glow); padding: 2rem 1.5rem 1.5rem 1.5rem; cursor: pointer; display: flex; flex-direction: column; min-height: 210px; border: 1px solid #232d3d; position: relative; transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition); touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    .card:active { transform: scale(.98); box-shadow: 0 2px 8px 0 #5ddcff77, 0 1px 6px 0 #1e293b70; border-color: #5ddcff55; }
+    .card:hover, .card:focus { box-shadow: 0 8px 28px 0 #5ddcff72, 0 2px 18px 0 #1e293b70; transform: translateY(-7px) scale(1.017); border-color: #5ddcff77; outline: none; }
+    .card h3 { margin-top: 0; margin-bottom: .6rem; font-size: 1.22rem; font-weight: 700; color: var(--accent); letter-spacing: .04em; }
+    .card p { margin: 0; color: var(--text-muted); font-size: 1.07rem; flex-grow: 1; }
+    .card::after { content: '→'; color: var(--accent); position: absolute; right: 1.4rem; bottom: 1.2rem; font-size: 1.14rem; opacity: 0.13; pointer-events: none; transition: opacity .2s; }
+    .card:hover::after { opacity: 0.35; }
+    #content-view { display: none; animation: fadeIn 0.5s; padding: 2.3rem 2rem 2rem 2rem; max-width: 760px; margin: 0 auto; background: var(--surface); box-shadow: var(--card-glow); border-radius: var(--card-radius); box-sizing: border-box; border: 1px solid #232d3d; position: relative; }
+    #content-view h1 { margin-top: 0; margin-bottom: 1.2rem; font-size: 2rem; font-weight: 700; color: var(--accent); letter-spacing: .04em; }
+    #post-content p, #post-content pre, #post-content a { font-size: 1.07rem; color: var(--text-muted); line-height: 1.7; word-break: break-word; }
+    #post-content a { color: var(--accent); text-decoration: underline; word-break: break-all; transition: color 0.18s; }
+    #post-content a:hover, #post-content a:focus { color: #fff; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent; outline: none; }
+    #post-content pre { background: #1e2330; border-radius: 7px; padding: 1.1em 1em; margin: 1em 0; font-size: 0.98em; overflow-x: auto; font-family: 'Fira Mono', 'Consolas', 'Courier', monospace; box-shadow: 0 2px 6px 0 #3c67e366; color: #87e8ff; }
+    #back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.55rem 1.3rem 0.5rem 1.3rem; background: var(--accent-gradient); color: #fff; border: none; border-radius: var(--button-radius); cursor: pointer; text-decoration: none; font-size: 1.07rem; font-family: inherit; font-weight: 600; transition: background .17s, box-shadow .17s; box-shadow: 0 2px 10px 0 #0003; border: 1.5px solid #2e445e; }
+    #back-btn:hover, #back-btn:focus { background: linear-gradient(90deg, #3c67e3 0%, #5ddcff 100%); outline: none; box-shadow: 0 4px 18px 0 #5ddcff55; }
+    @media (max-width: 1000px) { .main-container { flex-direction: column; } main { margin: 1rem auto 0 auto; padding: 0 .3rem; } #content-view { padding: 1.1rem 0.5rem; max-width: 99vw; border-radius: 11px; } }
+    @media (max-width: 600px) { header { font-size: 1.1rem; padding: 1.1rem .3rem 1rem .3rem; } .brand { font-size: 1.4rem; margin-bottom: .7rem; } .social-buttons { margin-top: 0.7rem; gap: .5rem; } .social-btn { font-size: .98rem; padding: 0.45rem 0.7rem; min-width: 40px; } #grid-view { grid-template-columns: 1fr; gap: 1rem; padding: 1rem 0; } .card { padding: 1.0rem 0.8rem 1rem 0.8rem; min-height: 117px; font-size: .96rem; border-radius: 11px; } .card h3 { font-size: 1rem; } .card::after { right: 1rem; bottom: 1rem; font-size: .96rem; } #post-content p, #post-content pre, #post-content a { font-size: .98rem; } #content-view h1 { font-size: 1.18rem; } #back-btn { font-size: .99rem; padding: 0.4rem 0.9rem 0.4rem 0.9rem; border-radius: 7px; } }
+    @media (max-width: 400px) { .brand { font-size: 1.1rem; } .social-btn { font-size: .85rem; padding: 0.36rem 0.5rem; } #search-box, #search-btn { font-size: .89rem; padding: 0.38rem 0.6rem; } }
+    @keyframes fadeIn { 0% { opacity: 0; transform: translateY(18px);} 100% { opacity: 1; transform: none;} }
+    .icon { width: 1.35em; height: 1.35em; vertical-align: middle; fill: currentColor; display: inline-block; margin-right: .37em; margin-bottom: -2.5px; }
   </style>
 </head>
 <body>
+  <header>
+    <div class="brand">oRee Scripter</div>
+    <div id="search-container">
+      <input id="search-box" class="search-box" type="text" placeholder="Pesquisar pelo título..." aria-label="Pesquisar pelo título" />
+      <button class="search-btn" id="search-btn" title="Pesquisar">
+        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16a6.471 6.471 0 004.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM9.5 14C7 14 5 12 5 9.5S7 5 9.5 5 14 7 14 9.5 12 14 9.5 14z"/>
+        </svg>
+        Buscar
+      </button>
+    </div>
+    <div class="social-buttons" role="navigation" aria-label="Links sociais">
+      <a class="social-btn" href="https://www.youtube.com/@MTS13GAMER" target="_blank" rel="noopener" title="YouTube">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.615 3.184A3.06 3.06 0 0017.4 2.88C15.063 2.8 12 2.8 12 2.8s-3.063 0-5.4.08a3.06 3.06 0 00-2.217.304A3.172 3.172 0 003.681 4.89a32.084 32.084 0 00-.08 6.107 32.084 32.084 0 00.08 6.108 3.172 3.172 0 001.7 1.607 3.06 3.06 0 002.217.304c2.337.08 5.4.08 5.4.08s3.063 0 5.4-.08a3.06 3.06 0 002.217-.304 3.172 3.172 0 001.7-1.607 32.09 32.09 0 00.08-6.108 32.09 32.09 0 00-.08-6.107 3.172 3.172 0 00-1.7-1.607zM10 14.88V8.12l5.2 3.38L10 14.88z"/></svg>
+        YouTube
+      </a>
+      <a class="social-btn" href="https://github.com/oReoFDev" target="_blank" rel="noopener" title="GitHub">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.386-1.333-1.754-1.333-1.754-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.238 1.838 1.238 1.07 1.835 2.808 1.304 3.495.997.108-.776.42-1.305.763-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.467-2.38 1.235-3.22-.123-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.287-1.552 3.292-1.23 3.292-1.23.655 1.653.243 2.873.12 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.625-5.48 5.92.431.372.816 1.103.816 2.222 0 1.606-.015 2.896-.015 3.286 0 .322.215.694.825.576C20.565 21.796 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a class="social-btn" href="https://discord.gg/kaKEkDh6Aq" target="_blank" rel="noopener" title="Discord">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.3698A19.7913 19.7913 0 0016.082 3c-.323 0-.65.027-.97.08a11.293 11.293 0 00-.54.1c-1.54.326-3.088.893-4.584 1.689a17.64 17.64 0 00-3.866 2.602c-1.052 1.06-2.228 2.68-2.992 4.17a10.395 10.395 0 00-.682 2.56c-.122.646-.157 1.311-.1 1.965.04.4.094.802.16 1.2.027.173.06.342.1.512.096.37.206.73.33 1.07.177.524.4 1.01.66 1.454 1.15 1.99 3.56 3.51 6.4 3.51 2.23 0 4.21-.71 5.57-1.89a6.625 6.625 0 003.18-5.19c.018-.31.027-.62.027-.93 0-.94-.18-1.85-.49-2.69a10.286 10.286 0 00-.52-1.17zm-11.68 8.66c-.81 0-1.47-.73-1.47-1.62 0-.9.64-1.62 1.47-1.62s1.47.73 1.47 1.62c0 .9-.65 1.62-1.47 1.62zm7.4 0c-.81 0-1.47-.73-1.47-1.62 0-.9.64-1.62 1.47-1.62s1.47.73 1.47 1.62c0 .9-.65 1.62-1.47 1.62z"/></svg>
+        Discord
+      </a>
+    </div>
+  </header>
 
-  <button id="btnVoltar" onclick="voltar()">← Voltar</button>
+  <main>
+    <div id="search-container">
+      <input id="search-box" type="search" placeholder="Pesquisar pelo título..." aria-label="Pesquisar pelo título" />
+      <button id="search-btn" aria-label="Buscar scripts">
+        Buscar
+      </button>
+    </div>
 
-  <header>Gr Fast - Escolha o conteúdo</header>
+    <div id="grid-view" role="list" aria-live="polite" aria-label="Lista de scripts">
+      <!-- Cards gerados pelo JS -->
+    </div>
 
-  <div id="btnContainer">
-    <button class="btn" onclick="abrirConteudo('animes')">Animes</button>
-    <button class="btn" onclick="abrirConteudo('filmes')">Filmes</button>
-  </div>
-
-  <div id="textoInicial">Escolha o conteúdo</div>
-
-  <iframe id="conteudoFrame" src="" allowfullscreen></iframe>
+    <section id="content-view" role="region" aria-live="polite" tabindex="-1" aria-label="Conteúdo do script selecionado" hidden>
+      <button id="back-btn" aria-label="Voltar para lista de scripts">← Voltar</button>
+      <h1 id="post-title"></h1>
+      <div id="post-content"></div>
+    </section>
+  </main>
 
   <script>
-    const textoInicial = document.getElementById('textoInicial');
-    const iframe = document.getElementById('conteudoFrame');
-    const btnVoltar = document.getElementById('btnVoltar');
-
-    function abrirConteudo(tipo) {
-      let url = '';
-      if (tipo === 'animes') {
-        url = 'https://goyabu.to/home-2';
-      } else if (tipo === 'filmes') {
-        url = 'https://filmeflixhd.com';
+    // Array dos posts (scripts)
+    const posts = [
+      {
+        title: "BoxBuh",
+        url: "https://raw.githubusercontent.com/MTS13GAMER/BoxBuh-/refs/heads/main/README.md",
+        description: "Script de BoxBuh principal (não testado)"
+      },
+      {
+        title: "BoxBuh v1",
+        url: "https://raw.githubusercontent.com/MTS13GAMER/BoxBuh-/refs/heads/main/README.md",
+        description: "Script de BoxBuh versão 1"
+      },
+      {
+        title: "Ot",
+        url: "https://raw.githubusercontent.com/OhhMyGehlee/fo/refs/heads/main/ot",
+        description: "Script Ot"
+      },
+      {
+        title: "Build A Boat",
+        url: "https://rawscripts.net/raw/Build-A-Boat-For-Treasure-Ultimte-B3BFT-Script",
+        description: "Script Build A Boat for Treasure"
       }
-      iframe.src = url;
-      iframe.style.display = 'block';
-      textoInicial.style.display = 'none';
-      btnVoltar.style.display = 'inline-block';
+    ];
+
+    // Elementos do DOM
+    const gridView = document.getElementById('grid-view');
+    const contentView = document.getElementById('content-view');
+    const postTitle = document.getElementById('post-title');
+    const postContent = document.getElementById('post-content');
+    const backBtn = document.getElementById('back-btn');
+    const searchBox = document.getElementById('search-box');
+    const searchBtn = document.getElementById('search-btn');
+
+    // Função para criar um card para cada post
+    function createCard(post) {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'listitem');
+      card.innerHTML = `
+        <h3>${post.title}</h3>
+        <p>${post.description}</p>
+      `;
+
+      // Ao clicar no card, carrega o conteúdo do post
+      card.addEventListener('click', () => loadPost(post));
+      card.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          loadPost(post);
+        }
+      });
+      return card;
     }
 
-    function voltar() {
-      iframe.style.display = 'none';
-      iframe.src = '';
-      textoInicial.style.display = 'block';
-      btnVoltar.style.display = 'none';
+    // Função para carregar e mostrar o conteúdo do post
+    async function loadPost(post) {
+      postTitle.textContent = post.title;
+      postContent.textContent = 'Carregando conteúdo...';
+      contentView.hidden = false;
+      gridView.style.display = 'none';
+
+      try {
+        const response = await fetch(post.url);
+        if (!response.ok) throw new Error(`Erro ao carregar o conteúdo (${response.status})`);
+        const text = await response.text();
+
+        // Exibir o conteúdo dentro de <pre> para preservar formatação
+        postContent.innerHTML = `<pre>${escapeHtml(text)}</pre>`;
+        contentView.focus();
+      } catch (error) {
+        postContent.textContent = `Erro ao carregar o conteúdo: ${error.message}`;
+      }
     }
 
-    // Inicialmente Voltar escondido
-    voltar();
+    // Função para escapar HTML para exibir texto puro
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Voltar para a lista
+    backBtn.addEventListener('click', () => {
+      contentView.hidden = true;
+      gridView.style.display = 'grid';
+      searchBox.focus();
+    });
+
+    // Função para exibir os cards filtrando por pesquisa
+    function displayPosts(filter = '') {
+      gridView.innerHTML = '';
+      const filtered = posts.filter(post =>
+        post.title.toLowerCase().includes(filter.toLowerCase())
+      );
+      if(filtered.length === 0) {
+        gridView.innerHTML = `<p style="color:#bbb; text-align:center;">Nenhum script encontrado.</p>`;
+      } else {
+        filtered.forEach(post => gridView.appendChild(createCard(post)));
+      }
+    }
+
+    // Evento do botão buscar e tecla Enter no campo input
+    searchBtn.addEventListener('click', () => displayPosts(searchBox.value.trim()));
+    searchBox.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') {
+        displayPosts(searchBox.value.trim());
+      }
+    });
+
+    // Carregar lista inicial
+    displayPosts();
   </script>
-
 </body>
 </html>
