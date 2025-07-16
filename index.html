@@ -2,308 +2,164 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dev Scripter - Scripts</title>
-  <link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1320005895219974184/1381430895944401027/Swift.png?ex=68477d47&is=68462bc7&hm=0c14ddec327f341585b502a81b71c7c6fde41e5e0ab82eb55a2178770f18667f&=&format=png&quality=lossless">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-  <button 
-  style="position:fixed;top:24px;left:24px;z-index:1000;padding:0.7em 1.5em;font-size:1rem;font-family:inherit;font-weight:700;border:none;border-radius:9px;background:linear-gradient(90deg,#9b59b6 0%,#6a1b9a 100%);color:#fff;box-shadow:0 2px 12px 0 #9b59b644;cursor:pointer;transition:filter 0.15s;"
-  onclick="window.location.href='https://oreofdev.github.io/Sw1ftSync/'"
->
-  &larr; Voltar
-</button>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gr Fast - Conteúdos</title>
   <style>
-    :root { 
-      /* cores roxas no lugar do azul original */
-      --primary: #1a1038; /* fundo principal escuro roxo */
-      --surface: #2e1e55; /* superfícies mais claras */
-      --accent: #9b59b6; /* roxo médio */
-      --accent-gradient: linear-gradient(90deg, #9b59b6 0%, #6a1b9a 100%); /* gradiente roxo */
-      --card-glow: 0 0 16px 0 #9b59b644, 0 4px 32px 0 #3b2a6750; /* brilho roxo */
-      --text-main: #e9e1f7; /* texto principal clarinho */
-      --text-muted: #b9a8d3; /* texto secundário */
-      --card-radius: 16px; 
-      --button-radius: 8px; 
-      --shadow: 0 2px 14px 0 #0008; 
-      --header-height: 4.5rem; 
-      --transition: 0.19s cubic-bezier(.4,0,.2,1); 
-      --sidebar-width: 210px; 
-      --sidebar-bg: #281d4b; 
-      --sidebar-border: #3b2a67; 
-      --sidebar-active: #3b2a67;
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    html, body { 
-      margin: 0; padding: 0; 
-      font-family: 'Montserrat', Arial, sans-serif; 
-      background: var(--primary); 
-      color: var(--text-main); 
-      min-height: 100vh; 
-      scroll-behavior: smooth; 
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a0a3d; /* Roxo escuro */
+      color: #ddd;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px 20px;
     }
-    body { 
-      background: radial-gradient(ellipse at 50% 0, #3a256d 60%, #1a1038 100%); /* fundo degradê roxo */
-      min-height: 100vh; 
-      display: flex; 
-      flex-direction: column; 
+
+    header {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #cfa5ff;
+      font-weight: 700;
+      text-shadow: 0 0 10px #7b4cff;
     }
-    header { 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-      background: var(--surface); 
-      border-bottom: 1px solid #3b2a67; 
-      padding: 2.2rem 1rem 1.7rem 1rem; 
-      z-index: 9; 
-      box-shadow: 0 2px 24px 0 #0003; 
+
+    /* Botões */
+    .btn {
+      background: linear-gradient(90deg, #7b4cff 0%, #3c67e3 100%);
+      color: white;
+      border: none;
+      border-radius: 9px;
+      padding: 0.8em 2em;
+      margin: 0 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 12px 0 #7b4cff55;
+      transition: filter 0.15s;
     }
-    .brand { 
-      font-size: 2.6rem; 
-      font-weight: 700; 
-      letter-spacing: .04em; 
-      background: var(--accent-gradient); 
-      -webkit-background-clip: text; 
-      -webkit-text-fill-color: transparent; 
-      background-clip: text; 
-      text-fill-color: transparent; 
-      margin: 0 0 1.4rem 0; 
-      user-select: none; 
-      text-align: center; 
-      width: 100%; 
+
+    .btn:hover {
+      filter: brightness(1.2);
     }
-    .social-buttons { 
-      display: flex; 
-      gap: 1rem; 
-      margin-top: 1.3rem; 
-      flex-wrap: wrap; 
-      justify-content: center; 
-      width: 100%; 
+
+    /* Botão Voltar fixo */
+    #btnVoltar {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      z-index: 1000;
+      padding: 0.7em 1.5em;
+      font-size: 1rem;
+      font-family: inherit;
+      font-weight: 700;
+      border: none;
+      border-radius: 9px;
+      background: linear-gradient(90deg, #7b4cff 0%, #3c67e3 100%);
+      color: #fff;
+      box-shadow: 0 2px 12px 0 #7b4cff55;
+      cursor: pointer;
+      transition: filter 0.15s;
+      display: none; /* Começa oculto, só aparece quando conteúdo está aberto */
     }
-    .social-btn { 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      background: #3b2a67; 
-      border: none; 
-      border-radius: var(--button-radius); 
-      padding: 0.6rem 1.1rem; 
-      color: var(--accent); 
-      font-size: 1.25rem; 
-      font-weight: 600; 
-      text-decoration: none; 
-      box-shadow: 0 2px 10px 0 #0003; 
-      transition: background .17s, color .17s, box-shadow .17s, transform .12s; 
-      cursor: pointer; 
-      outline: none; 
-      gap: .7em; 
-      min-width: 52px; 
-      border: 1.5px solid #5e3f9a;
-      position: relative; 
+
+    #btnVoltar:hover {
+      filter: brightness(1.2);
     }
-    .social-btn:hover, .social-btn:focus { 
-      background: var(--accent-gradient); 
-      color: #fff; 
-      box-shadow: 0 4px 24px 0 #9b59b655; 
-      transform: translateY(-2px) scale(1.045); 
-      border-color: #9b59b699; 
+
+    /* Container dos botões principais */
+    #btnContainer {
+      margin-bottom: 20px;
     }
-    .main-container { 
-      display: flex; 
-      flex: 1 1 0%; 
-      min-height: 0; 
-      min-width: 0; 
+
+    /* Texto inicial */
+    #textoInicial {
+      font-size: 1.25rem;
+      color: #cfa5ff;
+      margin-bottom: 30px;
+      text-align: center;
+      text-shadow: 0 0 8px #7b4cffaa;
     }
-    main { 
-      flex: 1 1 0%; 
-      max-width: 1180px; 
-      margin: 2.4rem auto 0 auto; 
-      padding: 0 1rem; 
-      min-width: 0; 
-      width: 100%; 
-      transition: margin-left 0.2s; 
+
+    /* Iframe conteúdo */
+    #conteudoFrame {
+      width: 100%;
+      max-width: 960px;
+      height: 600px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #7b4cff88;
+      background: #2a1a5d;
+      display: none; /* Começa oculto */
     }
-    #search-container { 
-      width: 100%; 
-      max-width: 400px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      margin: 0 0 1.3rem 0; 
+
+    /* Responsivo simples */
+    @media (max-width: 700px) {
+      #conteudoFrame {
+        height: 400px;
+      }
+      #btnContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .btn {
+        margin: 8px 0;
+        width: 80%;
+      }
     }
-    #search-box { 
-      width: 100%; 
-      border-radius: var(--button-radius); 
-      border: 1.5px solid #5e3f9a; 
-      background: #3b2a67; 
-      color: var(--text-main); 
-      padding: 0.62rem 1.1rem; 
-      font-size: 1.07rem; 
-      font-family: inherit; 
-      transition: border-color .17s; 
-      box-shadow: 0 3px 10px 0 #0002; 
-      margin-right: 0.5rem; 
+  </style>
+</head>
+<body>
+
+  <button id="btnVoltar" onclick="voltar()">← Voltar</button>
+
+  <header>Gr Fast - Escolha o conteúdo</header>
+
+  <div id="btnContainer">
+    <button class="btn" onclick="abrirConteudo('animes')">Animes</button>
+    <button class="btn" onclick="abrirConteudo('filmes')">Filmes</button>
+  </div>
+
+  <div id="textoInicial">Escolha o conteúdo</div>
+
+  <iframe id="conteudoFrame" src="" allowfullscreen></iframe>
+
+  <script>
+    const textoInicial = document.getElementById('textoInicial');
+    const iframe = document.getElementById('conteudoFrame');
+    const btnVoltar = document.getElementById('btnVoltar');
+
+    function abrirConteudo(tipo) {
+      let url = '';
+      if (tipo === 'animes') {
+        url = 'https://goyabu.to/home-2';
+      } else if (tipo === 'filmes') {
+        url = 'https://filmeflixhd.com';
+      }
+      iframe.src = url;
+      iframe.style.display = 'block';
+      textoInicial.style.display = 'none';
+      btnVoltar.style.display = 'inline-block';
     }
-    #search-box:focus { 
-      outline: none; 
-      border-color: #9b59b6; 
-      background: #462f7a; 
+
+    function voltar() {
+      iframe.style.display = 'none';
+      iframe.src = '';
+      textoInicial.style.display = 'block';
+      btnVoltar.style.display = 'none';
     }
-    #search-btn { 
-      background: var(--accent-gradient); 
-      border-radius: var(--button-radius); 
-      border: none; 
-      color: #fff; 
-      font-family: inherit; 
-      font-size: 1.07rem; 
-      font-weight: 600; 
-      padding: 0.62rem 1.3rem; 
-      cursor: pointer; 
-      transition: background .16s; 
-      box-shadow: 0 2px 8px 0 #9b59b633; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      gap: 0.4em; 
-    }
-    #search-btn:hover, #search-btn:focus { 
-      background: linear-gradient(90deg, #6a1b9a 0%, #9b59b6 100%); 
-      outline: none; 
-    }
-    .search-icon { 
-      width: 1.1em; 
-      height: 1.1em; 
-      fill: currentColor; 
-      margin-bottom: -2px; 
-    }
-    #grid-view { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); 
-      gap: 2.1rem; 
-      padding: 1.5rem 0; 
-      animation: fadeIn 0.5s; 
-    }
-    .card { 
-      background: var(--surface); 
-      border-radius: var(--card-radius); 
-      box-shadow: var(--card-glow); 
-      padding: 2rem 1.5rem 1.5rem 1.5rem; 
-      cursor: pointer; 
-      display: flex; 
-      flex-direction: column; 
-      min-height: 210px; 
-      border: 1px solid #3b2a67; 
-      position: relative; 
-      transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition); 
-      touch-action: manipulation; 
-      -webkit-tap-highlight-color: transparent; 
-    }
-    .card:active { 
-      transform: scale(.98); 
-      box-shadow: 0 2px 8px 0 #9b59b677, 0 1px 6px 0 #3b2a7070; 
-      border-color: #9b59b655; 
-    }
-    .card:hover, .card:focus { 
-      box-shadow: 0 8px 28px 0 #9b59b672, 0 2px 18px 0 #3b2a7070; 
-      transform: translateY(-7px) scale(1.017); 
-      border-color: #9b59b677; 
-      outline: none; 
-    }
-    .card h3 { 
-      margin-top: 0; 
-      margin-bottom: .6rem; 
-      font-size: 1.22rem; 
-      font-weight: 700; 
-      color: var(--accent); 
-      letter-spacing: .04em; 
-    }
-    .card p { 
-      margin: 0; 
-      color: var(--text-muted); 
-      font-size: 1.07rem; 
-      flex-grow: 1; 
-    }
-    .card::after { 
-      content: '→'; 
-      color: var(--accent); 
-      position: absolute; 
-      right: 1.4rem; 
-      bottom: 1.2rem; 
-      font-size: 1.14rem; 
-      opacity: 0.13; 
-      pointer-events: none; 
-      transition: opacity .2s; 
-    }
-    .card:hover::after { 
-      opacity: 0.35; 
-    }
-    #content-view { 
-      display: none; 
-      animation: fadeIn 0.5s; 
-      padding: 2.3rem 2rem 2rem 2rem; 
-      max-width: 760px; 
-      margin: 0 auto; 
-      background: var(--surface); 
-      box-shadow: var(--card-glow); 
-      border-radius: var(--card-radius); 
-      box-sizing: border-box; 
-      border: 1px solid #3b2a67; 
-      position: relative; 
-    }
-    #content-view h1 { 
-      margin-top: 0; 
-      margin-bottom: 1.2rem; 
-      font-size: 2rem; 
-      font-weight: 700; 
-      color: var(--accent); 
-      letter-spacing: .04em; 
-    }
-    #post-content p, #post-content pre, #post-content a { 
-      font-size: 1.07rem; 
-      color: var(--text-muted); 
-      line-height: 1.7; 
-      word-break: break-word; 
-    }
-    #post-content a { 
-      color: var(--accent); 
-      text-decoration: underline; 
-      word-break: break-all; 
-      transition: color 0.18s; 
-    }
-    #post-content a:hover, #post-content a:focus { 
-      color: #fff; 
-      background: var(--accent-gradient); 
-      -webkit-background-clip: text; 
-      -webkit-text-fill-color: transparent; 
-      background-clip: text; 
-      text-fill-color: transparent; 
-      outline: none; 
-    }
-    #post-content pre { 
-      background: #3b2a67; 
-      border-radius: 7px; 
-      padding: 1.1em 1em; 
-      margin: 1em 0; 
-      font-size: 0.98em; 
-      overflow-x: auto; 
-      font-family: 'Fira Mono', 'Consolas', 'Courier', monospace; 
-      box-shadow: 0 2px 6px 0 #6a1b9a66; 
-      color: #d7b8ff; 
-    }
-    #back-btn { 
-      display: inline-block; 
-      margin-bottom: 1.5rem; 
-      padding: 0.55rem 1.3rem 0.5rem 1.3rem; 
-      background: var(--accent-gradient); 
-      color: #fff; 
-      border: none; 
-      border-radius: var(--button-radius); 
-      cursor: pointer; 
-      text-decoration: none; 
-      font-size: 1.07rem; 
-      font-family: inherit; 
-      font-weight: 600; 
-      transition: background .17s, box-shadow .17s; 
-      box-shadow: 0 2px 10px 0 #0003; 
-      border: 1.5px solid #5e3f9a; 
-    }
-    #back
+
+    // Inicialmente Voltar escondido
+    voltar();
+  </script>
+
+</body>
+</html>
