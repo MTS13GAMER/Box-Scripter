@@ -1,59 +1,521 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oRee Scripter - Scripts</title>
-  <link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1320005895219974184/1381430895944401027/Swift.png?ex=68477d47&is=68462bc7&hm=0c14ddec327f341585b502a81b71c7c6fde41e5e0ab82eb55a2178770f18667f&=&format=png&quality=lossless">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background-color: #1a0826;
-      color: #ffffff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Scripter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    header {
-      background: #6e00a8;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1d23;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
 
-    .brand {
-      font-size: 1.8em;
-      font-weight: bold;
-      color: #ffffff;
-    }
+        .sidebar {
+            width: 200px;
+            background: #0f1419;
+            padding: 20px 0;
+            border-right: 1px solid #2d3748;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .social-buttons a {
-      margin-left: 15px;
-      text-decoration: none;
-      color: #ffffff;
-    }
+        .sidebar-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            font-size: 14px;
+            font-weight: 500;
+        }
 
-    .icon {
-      width: 24px;
-      height: 24px;
-      fill: #ffffff;
-    }
+        .sidebar-item:hover {
+            background: #2d3748;
+            border-left-color: #4299e1;
+        }
 
-    .social-btn:hover .icon {
-      fill: #d4aaff;
-    }
-  </style>
+        .sidebar-item.active {
+            background: #2d3748;
+            border-left-color: #4299e1;
+            color: #4299e1;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #2d3748;
+        }
+
+        .exit-info {
+            background: #2d3748;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #a0aec0;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-input {
+            background: #2d3748;
+            border: 1px solid #4a5568;
+            border-radius: 6px;
+            padding: 10px 16px;
+            color: #ffffff;
+            font-size: 14px;
+            width: 300px;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #718096;
+        }
+
+        .search-input:focus {
+            border-color: #4299e1;
+        }
+
+        .search-btn {
+            background: #4299e1;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 16px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #3182ce;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #2d3748;
+            border: 1px solid #4a5568;
+            border-radius: 6px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: #4a5568;
+            border-color: #4299e1;
+        }
+
+        .youtube-btn {
+            border-color: #ff0000;
+        }
+
+        .youtube-btn:hover {
+            background: #ff0000;
+            border-color: #ff0000;
+        }
+
+        .discord-btn {
+            border-color: #7289da;
+        }
+
+        .discord-btn:hover {
+            background: #7289da;
+            border-color: #7289da;
+        }
+
+        .github-btn {
+            border-color: #6cc644;
+        }
+
+        .github-btn:hover {
+            background: #6cc644;
+            border-color: #6cc644;
+        }
+
+        .content-area {
+            flex: 1;
+            background: #0f1419;
+            border-radius: 8px;
+            border: 1px solid #2d3748;
+            overflow: hidden;
+        }
+
+        .content-header {
+            background: #1a1d23;
+            padding: 20px;
+            border-bottom: 1px solid #2d3748;
+        }
+
+        .content-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #4299e1;
+            margin-bottom: 5px;
+        }
+
+        .content-subtitle {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .scripts-grid {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .script-card {
+            background: #2d3748;
+            border: 1px solid #4a5568;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .script-card:hover {
+            background: #4a5568;
+            border-color: #4299e1;
+            transform: translateY(-2px);
+        }
+
+        .script-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #4299e1, #38b2ac);
+        }
+
+        .script-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4299e1;
+            margin-bottom: 10px;
+        }
+
+        .script-name {
+            font-size: 14px;
+            color: #e2e8f0;
+            margin-bottom: 5px;
+        }
+
+        .script-desc {
+            font-size: 12px;
+            color: #a0aec0;
+            line-height: 1.4;
+        }
+
+        .output-panel {
+            background: #0f1419;
+            border-top: 1px solid #2d3748;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #a0aec0;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .output-panel.show {
+            display: block;
+        }
+
+        .output-line {
+            margin-bottom: 4px;
+        }
+
+        .output-success {
+            color: #68d391;
+        }
+
+        .output-info {
+            color: #4299e1;
+        }
+
+        .output-warning {
+            color: #f6ad55;
+        }
+
+        .loading-dots {
+            color: #4299e1;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* Scrollbar customization */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1d23;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="brand">oRee Scripter</div>
-    <div class="social-buttons">
-      <a class="social-btn" href="https://www.youtube.com/@MTS13GAMER" target="_blank" rel="noopener" title="YouTube">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M23.498 6.186a2.959 2.959 0 0 0-2.084-2.093C19.102 3.5 12 3.5 12 3.5s-7.102 0-9.414.593A2.959 2.959 0 0 0 .502 6.186C0 8.497 0 12 0 12s0 3.503.502 5.814a2.959 2.959 0 0 0 2.084 2.093C4.898 20.5 12 20.5 12 20.5s7.102 0 9.414-.593a2.959 2.959 0 0 0 2.084-2.093C24 15.503 24 12 24 12s0-3.503-.502-5.814z"/></svg>
-      </a>
+    <div class="sidebar">
+        <div class="sidebar-item active" onclick="switchTab('scripts')">Scripts</div>
+        <div class="sidebar-item" onclick="switchTab('executors')">Executores</div>
+        <div class="sidebar-item" onclick="switchTab('loadstring')">Loadstring</div>
+        <div class="sidebar-item" onclick="switchTab('influencers')">Influencers</div>
+        <div class="sidebar-item" onclick="switchTab('flappy')">FlappyBird</div>
+        <div class="sidebar-item" onclick="switchTab('tux')">Tux Cards</div>
     </div>
-  </header>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="exit-info">
+                Para sair do modo tela cheia, toque em <kbd>Esc</kbd> e pressione
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Pesquisar pelo título...">
+                <button class="search-btn">🔍</button>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.youtube.com/@MTS13GAMER" target="_blank" class="social-btn youtube-btn">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a2.97 2.97 0 0 0-2.089-2.089C19.757 3.766 12 3.766 12 3.766s-7.757 0-9.409.331A2.97 2.97 0 0 0 .502 6.186C.171 7.838.171 11.999.171 11.999s0 4.161.331 5.813a2.97 2.97 0 0 0 2.089 2.089c1.652.33 9.409.33 9.409.33s7.757 0 9.409-.33a2.97 2.97 0 0 0 2.089-2.089c.331-1.652.331-5.813.331-5.813s0-4.161-.331-5.813zM9.75 15.568V8.432L15.75 12l-6 3.568z"/>
+                </svg>
+                YouTube
+            </a>
+            <a href="https://discord.com/invite/BZwtCDS4Vz" target="_blank" class="social-btn discord-btn">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M20.222 0c1.406 0 2.54 1.137 2.607 2.475V24l-2.677-2.273-1.47-1.338-1.604-1.398.67 2.205H3.71c-1.402 0-2.54-1.065-2.54-2.476V2.48C1.17 1.142 2.31.003 3.715.003h16.5L20.222 0zm-6.118 5.683h-.03l-.202.2c2.073.6 3.076 1.537 3.076 1.537-1.336-.668-2.54-1.002-3.744-1.137-.87-.135-1.74-.064-2.475 0h-.2c-.47 0-1.47.2-2.81.735-.467.203-.735.336-.735.336s1.002-1.002 3.21-1.537l-.135-.135s-1.672-.064-3.477 1.27c0 0-1.805 3.144-1.805 7.02 0 0 1 1.74 3.743 1.806 0 0 .4-.533.805-1.002-1.54-.4-2.172-1.336-2.172-1.336s.135.068.335.2h.06c.03 0 .044.015.06.03v.006c.016.016.03.03.06.03.33.136.66.27.93.4.466.202 1.065.403 1.8.536.93.135 1.996.2 3.21 0 .6-.135 1.2-.267 1.8-.535.39-.2.87-.4 1.397-.737 0 0-.6.936-2.205 1.337.33.466.795 1 .795 1 2.744-.06 3.81-1.8 3.87-1.726 0-3.87-1.815-7.02-1.815-7.02-1.635-1.214-3.165-1.26-3.435-1.26l.056-.02zm.168 4.413c.703 0 1.27.6 1.27 1.335 0 .74-.57 1.34-1.27 1.34-.7 0-1.27-.6-1.27-1.34.002-.735.573-1.335 1.27-1.335zm-4.543 0c.7 0 1.266.6 1.266 1.335 0 .74-.57 1.34-1.27 1.34-.7 0-1.27-.6-1.27-1.34 0-.735.57-1.335 1.27-1.335z"/>
+                </svg>
+                Discord
+            </a>
+            <a href="#" class="social-btn github-btn">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+            </a>
+        </div>
+
+        <div class="content-area">
+            <div class="content-header">
+                <div class="content-title">Dev Scripter</div>
+                <div class="content-subtitle">Selecione um script para executar</div>
+            </div>
+            
+            <div class="scripts-grid">
+                <div class="script-card" onclick="runScript(1)">
+                    <div class="script-number">01</div>
+                    <div class="script-name">Sistema Init</div>
+                    <div class="script-desc">Inicialização completa do sistema e verificação de dependências</div>
+                </div>
+                
+                <div class="script-card" onclick="runScript(2)">
+                    <div class="script-number">02</div>
+                    <div class="script-name">Data Processor</div>
+                    <div class="script-desc">Processamento avançado de dados e geração de relatórios</div>
+                </div>
+                
+                <div class="script-card" onclick="runScript(3)">
+                    <div class="script-number">03</div>
+                    <div class="script-name">Auto Backup</div>
+                    <div class="script-desc">Sistema automático de backup com verificação de integridade</div>
+                </div>
+                
+                <div class="script-card" onclick="runScript(4)">
+                    <div class="script-number">04</div>
+                    <div class="script-name">Performance Monitor</div>
+                    <div class="script-desc">Monitoramento em tempo real de performance do sistema</div>
+                </div>
+                
+                <div class="script-card" onclick="runScript(5)">
+                    <div class="script-number">05</div>
+                    <div class="script-name">System Cleaner</div>
+                    <div class="script-desc">Limpeza e otimização completa do sistema</div>
+                </div>
+            </div>
+
+            <div id="output" class="output-panel"></div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            // Remove active class from all sidebar items
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to clicked item
+            event.target.classList.add('active');
+            
+            // Update content title based on tab
+            const titles = {
+                scripts: 'Dev Scripter',
+                executors: 'Executores',
+                loadstring: 'Loadstring',
+                influencers: 'Influencers',
+                flappy: 'FlappyBird',
+                tux: 'Tux Cards'
+            };
+            
+            document.querySelector('.content-title').textContent = titles[tab];
+        }
+
+        function runScript(scriptNumber) {
+            const output = document.getElementById('output');
+            output.classList.add('show');
+            
+            // Clear previous output
+            output.innerHTML = '';
+            
+            // Show loading
+            const loadingLine = document.createElement('div');
+            loadingLine.className = 'output-line loading-dots';
+            loadingLine.textContent = `Executando Script ${scriptNumber}...`;
+            output.appendChild(loadingLine);
+            
+            // Simulate script execution
+            setTimeout(() => {
+                output.innerHTML = '';
+                
+                const scripts = {
+                    1: [
+                        { text: '[INFO] Iniciando Sistema Init...', class: 'output-info' },
+                        { text: '[OK] Verificando dependências...', class: 'output-success' },
+                        { text: '[OK] Carregando módulos core...', class: 'output-success' },
+                        { text: '[OK] Configurando ambiente...', class: 'output-success' },
+                        { text: '[OK] Validando configurações...', class: 'output-success' },
+                        { text: '[INFO] Sistema iniciado com sucesso!', class: 'output-info' },
+                        { text: '[INFO] Tempo de execução: 2.3s', class: 'output-info' }
+                    ],
+                    2: [
+                        { text: '[INFO] Iniciando Data Processor...', class: 'output-info' },
+                        { text: '[OK] Conectando ao banco de dados...', class: 'output-success' },
+                        { text: '[OK] Lendo arquivos de entrada...', class: 'output-success' },
+                        { text: '[OK] Processando 1,247 registros...', class: 'output-success' },
+                        { text: '[WARN] 3 registros com avisos menores', class: 'output-warning' },
+                        { text: '[OK] Gerando relatório final...', class: 'output-success' },
+                        { text: '[INFO] Processamento concluído!', class: 'output-info' }
+                    ],
+                    3: [
+                        { text: '[INFO] Iniciando Auto Backup...', class: 'output-info' },
+                        { text: '[OK] Conectando ao servidor remoto...', class: 'output-success' },
+                        { text: '[OK] Verificando espaço disponível...', class: 'output-success' },
+                        { text: '[OK] Compactando arquivos...', class: 'output-success' },
+                        { text: '[OK] Fazendo upload (2.4 GB)...', class: 'output-success' },
+                        { text: '[OK] Verificando integridade...', class: 'output-success' },
+                        { text: '[INFO] Backup concluído com sucesso!', class: 'output-info' }
+                    ],
+                    4: [
+                        { text: '[INFO] Iniciando Performance Monitor...', class: 'output-info' },
+                        { text: '[OK] Coletando métricas do sistema...', class: 'output-success' },
+                        { text: '[OK] CPU: 23% (Normal)', class: 'output-success' },
+                        { text: '[OK] RAM: 67% (Aceitável)', class: 'output-success' },
+                        { text: '[OK] Rede: 45 Mbps (Ótima)', class: 'output-success' },
+                        { text: '[OK] Disco: 78% (Monitorar)', class: 'output-success' },
+                        { text: '[INFO] Sistema operando normalmente!', class: 'output-info' }
+                    ],
+                    5: [
+                        { text: '[INFO] Iniciando System Cleaner...', class: 'output-info' },
+                        { text: '[OK] Limpando arquivos temporários...', class: 'output-success' },
+                        { text: '[OK] Removendo logs antigos...', class: 'output-success' },
+                        { text: '[OK] Otimizando banco de dados...', class: 'output-success' },
+                        { text: '[OK] Desfragmentando disco...', class: 'output-success' },
+                        { text: '[INFO] Espaço liberado: 3.2 GB', class: 'output-info' },
+                        { text: '[INFO] Otimização concluída!', class: 'output-info' }
+                    ]
+                };
+                
+                const scriptOutput = scripts[scriptNumber];
+                scriptOutput.forEach((line, index) => {
+                    setTimeout(() => {
+                        const outputLine = document.createElement('div');
+                        outputLine.className = `output-line ${line.class}`;
+                        outputLine.textContent = line.text;
+                        output.appendChild(outputLine);
+                        output.scrollTop = output.scrollHeight;
+                    }, index * 200);
+                });
+                
+            }, 1000);
+        }
+
+        // Search functionality
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.toLowerCase();
+                const cards = document.querySelectorAll('.script-card');
+                
+                cards.forEach(card => {
+                    const name = card.querySelector('.script-name').textContent.toLowerCase();
+                    const desc = card.querySelector('.script-desc').textContent.toLowerCase();
+                    
+                    if (name.includes(searchTerm) || desc.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = searchTerm === '' ? 'block' : 'none';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
