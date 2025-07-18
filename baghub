@@ -1,0 +1,233 @@
+-- Script Bag Hub com Auto Click e Teleporte
+-- Coloque em StarterPlayer > StarterPlayerScripts
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+-- Variáveis de controle
+local currentTarget = nil
+local isActive = false
+local teleportConnection = nil
+local autoClickConnection = nil
+local guiVisible = true
+
+-- Criar ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "BagHubGui"
+screenGui.ResetOnSpawn = false -- <- GUI não some ao morrer
+screenGui.Parent = PlayerGui
+
+-- Frame principal (redondo e movível)
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "BagHubFrame"
+mainFrame.Size = UDim2.new(0, 300, 0, 200)
+mainFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+mainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Parent = screenGui
+
+local mainCorner = Instance.new("UICorner")
+mainCorner.CornerRadius = UDim.new(0, 25)
+mainCorner.Parent = mainFrame
+
+-- Título
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Name = "TitleLabel"
+titleLabel.Size = UDim2.new(1, 0, 0, 50)
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+titleLabel.BorderSizePixel = 0
+titleLabel.Text = "Bag Hub"
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.TextScaled = true
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.Parent = mainFrame
+
+local titleCorner = Instance.new("UICorner")
+titleCorner.CornerRadius = UDim.new(0, 25)
+titleCorner.Parent = titleLabel
+
+-- Status
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Name = "StatusLabel"
+statusLabel.Size = UDim2.new(1, -20, 0, 30)
+statusLabel.Position = UDim2.new(0, 10, 0, 70)
+statusLabel.BackgroundTransparency = 1
+statusLabel.Text = "Status: Inativo"
+statusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+statusLabel.TextScaled = true
+statusLabel.Font = Enum.Font.SourceSans
+statusLabel.Parent = mainFrame
+
+-- Botão Play Kill
+local playKillButton = Instance.new("TextButton")
+playKillButton.Name = "PlayKillButton"
+playKillButton.Size = UDim2.new(0.45, -5, 0, 40)
+playKillButton.Position = UDim2.new(0, 10, 0, 110)
+playKillButton.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+playKillButton.BorderSizePixel = 0
+playKillButton.Text = "Play Kill"
+playKillButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+playKillButton.TextScaled = true
+playKillButton.Font = Enum.Font.SourceSansBold
+playKillButton.Parent = mainFrame
+
+local playCorner = Instance.new("UICorner")
+playCorner.CornerRadius = UDim.new(0, 10)
+playCorner.Parent = playKillButton
+
+-- Botão Stop (modificado)
+local stopButton = Instance.new("TextButton")
+stopButton.Name = "StopButton"
+stopButton.Size = UDim2.new(0.45, -5, 0, 40)
+stopButton.Position = UDim2.new(0.55, 5, 0, 110)
+stopButton.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+stopButton.BorderSizePixel = 0
+stopButton.Text = "Parar (V)"
+stopButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+stopButton.TextScaled = true
+stopButton.Font = Enum.Font.SourceSansBold
+stopButton.Parent = mainFrame
+
+local stopCorner = Instance.new("UICorner")
+stopCorner.CornerRadius = UDim.new(0, 10)
+stopCorner.Parent = stopButton
+
+-- Encontrar alvo
+local function findNextTarget()
+    local players = Players:GetPlayers()
+    for _, player in pairs(players) do
+        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local humanoid = player.Character:FindFirstChild("Humanoid")
+            if humanoid and humanoid.Health > 0 then
+                return player
+            end
+        end
+    end
+    return nil
+end
+
+-- Pressionar tecla 1
+local function pressKey1()
+    local vim = game:GetService("VirtualInputManager")
+    vim:SendKeyEvent(true, Enum.KeyCode.One, false, game)
+    wait(0.1)
+    vim:SendKeyEvent(false, Enum.KeyCode.One, false, game)
+end
+
+-- Auto click
+local function startAutoClick()
+    if autoClickConnection then autoClickConnection:Disconnect() end
+
+    autoClickConnection = RunService.Heartbeat:Connect(function()
+        if isActive then
+            local vim = game:GetService("VirtualInputManager")
+            vim:SendMouseButtonEvent(400, 300, 0, true, game, 1)
+            vim:SendMouseButtonEvent(400, 300, 0, false, game, 1)
+        end
+    end)
+end
+
+local function stopAutoClick()
+    if autoClickConnection then
+        autoClickConnection:Disconnect()
+        autoClickConnection = nil
+    end
+end
+
+-- Sistema principal
+local function startSystem()
+    if isActive then return end
+
+    isActive = true
+    statusLabel.Text = "Status: Ativo"
+    statusLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+
+    pressKey1()
+    startAutoClick()
+
+    teleportConnection = RunService.Heartbeat:Connect(function()
+        if not isActive then return end
+
+        if not currentTarget or not currentTarget.Parent or not currentTarget.Character or not currentTarget.Character:FindFirstChild("HumanoidRootPart") then
+            currentTarget = findNextTarget()
+            if currentTarget then
+                statusLabel.Text = "Status: Alvo -> " .. currentTarget.Name
+            else
+                statusLabel.Text = "Status: Nenhum alvo encontrado"
+                return
+            end
+        end
+
+        local humanoid = currentTarget.Character and currentTarget.Character:FindFirstChild("Humanoid")
+        if humanoid and humanoid.Health <= 0 then
+            currentTarget = findNextTarget()
+            if currentTarget then
+                statusLabel.Text = "Status: Novo alvo -> " .. currentTarget.Name
+            else
+                statusLabel.Text = "Status: Nenhum alvo vivo"
+                return
+            end
+        end
+
+        local char = LocalPlayer.Character
+        if char and char:FindFirstChild("HumanoidRootPart") and currentTarget and currentTarget.Character and currentTarget.Character:FindFirstChild("HumanoidRootPart") then
+            char.HumanoidRootPart.CFrame = CFrame.new(currentTarget.Character.HumanoidRootPart.Position + Vector3.new(0, 0, 0.5))
+        end
+    end)
+end
+
+local function stopSystem()
+    isActive = false
+    currentTarget = nil
+    statusLabel.Text = "Status: Inativo"
+    statusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+    if teleportConnection then
+        teleportConnection:Disconnect()
+        teleportConnection = nil
+    end
+
+    stopAutoClick()
+end
+
+-- Quando renascer, continuar ativo
+LocalPlayer.CharacterAdded:Connect(function(char)
+    if isActive then
+        char:WaitForChild("HumanoidRootPart", 5)
+        task.wait(1)
+        print("Personagem renasceu, sistema continua ativo.")
+    end
+end)
+
+-- Toggle do GUI (tecla C) + tecla V para parar
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+
+    if input.KeyCode == Enum.KeyCode.C then
+        guiVisible = not guiVisible
+        local targetPosition = guiVisible and UDim2.new(0.5, -150, 0.5, -100) or UDim2.new(0.5, -150, -1, -100)
+        local tween = TweenService:Create(mainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad), { Position = targetPosition })
+        tween:Play()
+    elseif input.KeyCode == Enum.KeyCode.V then
+        stopSystem()
+    end
+end)
+
+-- Conectar botões
+playKillButton.MouseButton1Click:Connect(startSystem)
+stopButton.MouseButton1Click:Connect(stopSystem)
+
+-- Alvo removido
+Players.PlayerRemoving:Connect(function(player)
+    if currentTarget == player then
+        currentTarget = nil
+    end
+end)
