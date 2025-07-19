@@ -143,6 +143,21 @@
       box-shadow: 0 6px 20px rgba(156, 39, 176, 0.3);
     }
 
+    /* Estilo específico para o botão Voltar */
+    .btn-back {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+      font-size: 1.2em;
+      padding: 16px 35px;
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+      margin-top: 20px;
+    }
+
+    .btn-back:hover {
+      background: linear-gradient(45deg, #ff5252, #d84315);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+    }
+
     .btn::before {
       content: '';
       position: absolute;
@@ -234,9 +249,21 @@
         font-size: 1em;
       }
 
+      .btn-back {
+        padding: 14px 25px;
+        font-size: 1.1em;
+      }
+
       .btn-row {
         flex-direction: column;
         gap: 15px;
+      }
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
       }
     }
   </style>
@@ -265,13 +292,14 @@
           🌐 Loadstring
         </a>
       </div>
+      
+      <div class="btn-row">
+        <a href="https://mts13gamer.github.io/Dev-Scripter/" class="btn btn-back">
+          ← Voltar
+        </a>
+      </div>
     </div>
-    <div class="btn-row">
-  <a href="https://mts13gamer.github.io/Dev-Scripter/" class="btn btn-back">
-    ← Voltar
-  </a>
-</div>
-
+  </div>
 
   <div class="footer">
     © 2025 Dev Scripter - Tools
@@ -313,14 +341,5 @@
       });
     });
   </script>
-
-  <style>
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-  </style>
 </body>
 </html>
