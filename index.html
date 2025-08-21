@@ -13,14 +13,15 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #4a148c 0%, #6a1b9a 50%, #8e24aa 100%);
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
+      color: #f0f0f0;
     }
 
     /* Animated background particles */
@@ -37,9 +38,10 @@
       position: absolute;
       width: 4px;
       height: 4px;
-      background: rgba(255, 255, 255, 0.6);
+      background: rgba(120, 0, 255, 0.6);
       border-radius: 50%;
       animation: float 6s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(120, 0, 255, 0.5);
     }
 
     @keyframes float {
@@ -49,15 +51,36 @@
 
     .container {
       text-align: center;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      background: rgba(20, 20, 20, 0.8);
+      backdrop-filter: blur(12px);
       border-radius: 20px;
       padding: 60px 40px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(100, 100, 100, 0.2);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
       max-width: 500px;
       width: 90%;
       animation: slideIn 0.8s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #6200ea, #8a2be2, #6200ea);
+      z-index: -1;
+      border-radius: 22px;
+      animation: borderGlow 3s linear infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+      100% { opacity: 0.3; }
     }
 
     @keyframes slideIn {
@@ -76,12 +99,13 @@
       font-weight: bold;
       color: #fff;
       margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      background: linear-gradient(45deg, #fff, #f0f0f0);
+      text-shadow: 0 0 15px rgba(120, 0, 255, 0.8);
+      background: linear-gradient(45deg, #fff, #c0c0c0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       animation: pulse 2s ease-in-out infinite;
+      position: relative;
     }
 
     @keyframes pulse {
@@ -91,15 +115,16 @@
 
     .subtitle {
       font-size: 1.5em;
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(200, 200, 200, 0.9);
       margin-bottom: 40px;
       font-weight: 300;
       letter-spacing: 1px;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
     }
 
     .description {
       font-size: 1.1em;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(200, 200, 200, 0.8);
       margin-bottom: 40px;
       line-height: 1.6;
     }
@@ -121,53 +146,42 @@
     .btn {
       display: inline-block;
       padding: 18px 40px;
-      background: linear-gradient(45deg, #6200ea, #8a2be2);
+      background: linear-gradient(45deg, #4a148c, #6a1b9a);
       color: white;
       text-decoration: none;
-      border-radius: 50px;
+      border-radius: 12px;
       font-size: 1.3em;
       font-weight: 600;
       transition: all 0.3s ease;
-      box-shadow: 0 8px 25px rgba(98, 0, 234, 0.3);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(100, 0, 255, 0.3);
       position: relative;
       overflow: hidden;
       border: none;
       cursor: pointer;
       min-width: 180px;
-    }
-
-    .btn-secondary {
-      background: linear-gradient(45deg, #9c27b0, #673ab7);
-      font-size: 1.1em;
-      padding: 15px 30px;
-      box-shadow: 0 6px 20px rgba(156, 39, 176, 0.3);
+      z-index: 1;
     }
 
     .btn::before {
       content: '';
       position: absolute;
       top: 0;
-      left: -100%;
+      left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s ease;
+      background: linear-gradient(45deg, #6a1b9a, #8e24aa);
+      z-index: -1;
+      transition: opacity 0.3s ease;
+      opacity: 0;
     }
 
     .btn:hover::before {
-      left: 100%;
+      opacity: 1;
     }
 
     .btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(98, 0, 234, 0.4);
-      background: linear-gradient(45deg, #7c4dff, #9c27b0);
-    }
-
-    .btn-secondary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(156, 39, 176, 0.4);
-      background: linear-gradient(45deg, #ab47bc, #7b1fa2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(120, 0, 255, 0.5);
     }
 
     .btn:active {
@@ -183,31 +197,37 @@
 
     .feature {
       padding: 20px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(30, 30, 30, 0.7);
       border-radius: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: transform 0.3s ease;
+      border: 1px solid rgba(100, 100, 100, 0.3);
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     .feature:hover {
       transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 10px rgba(100, 0, 255, 0.2);
+      border-color: rgba(120, 0, 255, 0.5);
     }
 
     .feature-icon {
       font-size: 2em;
       margin-bottom: 10px;
+      filter: drop-shadow(0 0 5px rgba(120, 0, 255, 0.5));
     }
 
     .feature-text {
       font-size: 0.9em;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(200, 200, 200, 0.9);
+      font-weight: 500;
     }
 
     .footer {
       position: absolute;
       bottom: 20px;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(150, 150, 150, 0.7);
       font-size: 0.9em;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     }
 
     @media (max-width: 600px) {
@@ -227,11 +247,6 @@
         padding: 15px 25px;
         font-size: 1.1em;
         min-width: 150px;
-      }
-
-      .btn-secondary {
-        padding: 12px 20px;
-        font-size: 1em;
       }
 
       .btn-row {
@@ -258,13 +273,13 @@
     <div class="logo">Box Scripter</div>
     <div class="btn-container">
       <div class="btn-row">
-        <a href="https://mts13gamer.github.io/Box-Scripter/Scripts.html" class="btn btn-primary">
+        <a href="https://mts13gamer.github.io/Box-Scripter/Scripts.html" class="btn">
           📜 Scripts
         </a>
-        <a href="https://mts13gamer.github.io/Box-Scripter/executores.html" class="btn btn-primary">
+        <a href="https://mts13gamer.github.io/Box-Scripter/executores.html" class="btn">
           ⚡ Executores
         </a>
-      <a href="https://mts13gamer.github.io/Box-Scripter/tools.html" class="btn btn-primary">
+      <a href="https://mts13gamer.github.io/Box-Scripter/tools.html" class="btn">
           🔨 Tools
         </a>
       </div>
@@ -315,10 +330,10 @@
         ripple.style.background = 'rgba(255, 255, 255, 0.6)';
         ripple.style.transform = 'scale(0)';
         ripple.style.animation = 'ripple 0.6s linear';
-        ripple.style.left = (e.clientX - e.target.offsetLeft) + 'px';
-        ripple.style.top = (e.clientY - e.target.offsetTop) + 'px';
+        ripple.style.left = (e.clientX - e.target.getBoundingClientRect().left) + 'px';
+        ripple.style.top = (e.clientY - e.target.getBoundingClientRect().top) + 'px';
         
-        e.target.appendChild(ripple);
+        this.appendChild(ripple);
         
         setTimeout(() => {
           ripple.remove();
@@ -337,5 +352,3 @@
   </style>
 </body>
 </html>
-
-
