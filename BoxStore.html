@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Store - Jogos Gratuitos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1B2838 0%, #0e1621 100%);
+            color: #FFFFFF;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 60px;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Cabeçalho estilo Steam */
+        header {
+            background-color: #171d25;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            color: #66C0F4;
+            font-size: 2rem;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #C7D5E0;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #66C0F4;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 3px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-login {
+            background-color: #2A475E;
+            color: #FFFFFF;
+        }
+
+        .btn-login:hover {
+            background-color: #3C5A72;
+        }
+
+        .btn-signup {
+            background-color: #5C7E10;
+            color: #FFFFFF;
+        }
+
+        .btn-signup:hover {
+            background-color: #6f9a0f;
+        }
+
+        .btn-fullscreen {
+            background-color: transparent;
+            color: #C7D5E0;
+            font-size: 1.2rem;
+            padding: 5px 10px;
+        }
+
+        /* Conteúdo Principal */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.igdb.com/igdb/image/upload/t_cover_big/co1hxu.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #66C0F4;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #C7D5E0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Seção de Jogos */
+        .games-section {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #66C0F4;
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: #5C7E10;
+            margin: 10px auto;
+        }
+
+        .games-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .game-card {
+            background: linear-gradient(145deg, #1C1C1C 0%, #2A475E 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+            border: 1px solid #2A475E;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-bottom: 3px solid #66C0F4;
+        }
+
+        .game-content {
+            padding: 20px;
+        }
+
+        .game-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #66C0F4;
+        }
+
+        .game-description {
+            color: #C7D5E0;
+            margin-bottom: 20px;
+            height: 120px;
+            overflow-y: auto;
+        }
+
+        .game-description::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .game-description::-webkit-scrollbar-thumb {
+            background-color: #5C7E10;
+            border-radius: 5px;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: #C7D5E0;
+            font-size: 0.9rem;
+        }
+
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #2A475E;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .download-btn:hover {
+            background-color: #3C5A72;
+        }
+
+        /* Modal de Login/Cadastro */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1C1C1C 0%, #2A475E 100%);
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid #66C0F4;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #66C0F4;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #C7D5E0;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #C7D5E0;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #2A475E;
+            border-radius: 4px;
+            background-color: #1B2838;
+            color: #FFFFFF;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #5C7E10;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .form-submit:hover {
+            background-color: #6f9a0f;
+        }
+
+        .form-toggle {
+            text-align: center;
+            margin-top: 20px;
+            color: #C7D5E0;
+        }
+
+        .form-toggle a {
+            color: #66C0F4;
+            cursor: pointer;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #171d25;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 2px solid #5C7E10;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-text {
+            color: #C7D5E0;
+            font-size: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: #C7D5E0;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #66C0F4;
+        }
+
+        /* Estilos para modo de tela cheia */
+        body.fullscreen-mode {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body.fullscreen-mode header {
+            border-radius: 0;
+        }
+
+        body.fullscreen-mode .container {
+            max-width: 100%;
+            padding: 0 30px;
+        }
+
+        body.fullscreen-mode .hero {
+            border-radius: 0;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.fullscreen-mode .games-container {
+            gap: 40px;
+        }
+
+        body.fullscreen-mode .game-card {
+            max-width: 600px;
+            transform: scale(1.05);
+        }
+
+        body.fullscreen-mode .game-image {
+            height: 350px;
+        }
+
+        body.fullscreen-mode .game-content {
+            padding: 30px;
+        }
+
+        body.fullscreen-mode footer {
+            border-radius: 0;
+            margin-top: 40px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .games-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-card {
+                max-width: 100%;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            body.fullscreen-mode .game-card {
+                max-width: 100%;
+                transform: none;
+            }
+
+            body.fullscreen-mode .container {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-gamepad logo-icon"></i>
+                <div class="logo-text">Box Store</div>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#">Início</a>
+                <a href="#">Loja</a>
+                <a href="#">Biblioteca</a>
+                <a href="#">Comunidade</a>
+            </div>
+            
+            <div class="user-actions">
+                <button class="btn btn-fullscreen" id="fullscreenBtn" title="Modo de Tela Cheia">
+                    <i class="fas fa-expand"></i>
+                </button>
+                <button class="btn btn-login" id="loginBtn">Login</button>
+                <button class="btn btn-signup" id="signupBtn">Criar Conta</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <h1 class="hero-title">Box Store - Jogos Grátis</h1>
+            <p class="hero-subtitle">Baixe e jogue os melhores jogos gratuitos. Crie sua conta e tenha acesso a Cuphead, Undertale e muito mais!</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <section class="games-section">
+            <h2 class="section-title">Nossos Jogos</h2>
+            
+            <div class="games-container">
+                <!-- Jogo 1: Cuphead -->
+                <div class="game-card">
+                    <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co1hxu.jpg" alt="Cuphead" class="game-image">
+                    <div class="game-content">
+                        <h3 class="game-title">Cuphead</h3>
+                        <div class="game-meta">
+                            <span><i class="fas fa-tag"></i> Ação, Aventura</span>
+                            <span><i class="fas fa-download"></i> 3.5 GB</span>
+                        </div>
+                        <p class="game-description">
+                            Cuphead é um jogo de ação e tiros clássico, com enorme ênfase em batalhas contra chefes. 
+                            Inspirado nas animações infantis da década de 1930, o visual e áudio do jogo foram meticulosamente 
+                            recriados com as mesmíssimas técnicas da época, ou seja, animação tradicional à mão, fundos de aquarela 
+                            e gravações originais de jazz.
+                        </p>
+                        <button class="download-btn" data-game="Cuphead">Jogar Agora</button>
+                    </div>
+                </div>
+                
+                <!-- Jogo 2: Undertale -->
+                <div class="game-card">
+                    <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co1r76.jpg" alt="Undertale" class="game-image">
+                    <div class="game-content">
+                        <h3 class="game-title">Undertale</h3>
+                        <div class="game-meta">
+                            <span><i class="fas fa-tag"></i> RPG, Indie</span>
+                            <span><i class="fas fa-download"></i> 200 MB</span>
+                        </div>
+                        <p class="game-description">
+                            Undertale é um RPG que permite que você escolha entre matar ou poupar seus inimigos. 
+                            A história se passa no subsolo, onde monstros foram exilados após uma guerra com os humanos. 
+                            Você joga como uma criança que caiu no mundo dos monstros e deve encontrar uma maneira de voltar 
+                            para a superfície, fazendo amigos e inimigos pelo caminho.
+                        </p>
+                        <button class="download-btn" data-game="Undertale">Jogar Agora</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Login/Cadastro -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Login</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="authForm">
+                <div class="form-group">
+                    <label for="username">Usuário</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="form-submit" id="formSubmit">Entrar</button>
+            </form>
+            <div class="form-toggle">
+                <span id="formToggleText">Não tem uma conta? <a id="formToggleLink">Criar conta</a></span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container footer-content">
+            <p class="footer-text">Todos os jogos são gratuitos. Divirta-se!</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-steam"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Elementos do DOM
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const authModal = document.getElementById('authModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const authForm = document.getElementById('authForm');
+        const formSubmit = document.getElementById('formSubmit');
+        const formToggleLink = document.getElementById('formToggleLink');
+        const formToggleText = document.getElementById('formToggleText');
+        const emailField = document.getElementById('email');
+        const closeModal = document.querySelector('.close-modal');
+        const downloadButtons = document.querySelectorAll('.download-btn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const body = document.body;
+
+        // Estado do modal (login ou cadastro)
+        let isLoginMode = true;
+        let isFullscreen = false;
+
+        // Alternar entre login e cadastro
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
+            
+            if (isLoginMode) {
+                modalTitle.textContent = 'Login';
+                formSubmit.textContent = 'Entrar';
+                emailField.style.display = 'none';
+                formToggleText.innerHTML = 'Não tem uma conta? <a id="formToggleLink">Criar conta</a>';
+            } else {
+                modalTitle.textContent = 'Criar Conta';
+                formSubmit.textContent = 'Registrar';
+                emailField.style.display = 'block';
+                formToggleText.innerHTML = 'Já tem uma conta? <a id="formToggleLink">Fazer login</a>';
+            }
+            
+            // Reatachar o event listener
+            document.getElementById('formToggleLink').addEventListener('click', toggleAuthMode);
+        }
+
+        // Abrir modal de login
+        loginBtn.addEventListener('click', () => {
+            isLoginMode = true;
+            modalTitle.textContent = 'Login';
+            formSubmit.textContent = 'Entrar';
+            emailField.style.display = 'none';
+            formToggleText.innerHTML = 'Não tem uma conta? <a id="formToggleLink">Criar conta</a>';
+            authModal.style.display = 'flex';
+            
+            // Reatachar o event listener
+            document.getElementById('formToggleLink').addEventListener('click', toggleAuthMode);
+        });
+
+        // Abrir modal de cadastro
+        signupBtn.addEventListener('click', () => {
+            isLoginMode = false;
+            modalTitle.textContent = 'Criar Conta';
+            formSubmit.textContent = 'Registrar';
+            emailField.style.display = 'block';
+            formToggleText.innerHTML = 'Já tem uma conta? <a id="formToggleLink">Fazer login</a>';
+            authModal.style.display = 'flex';
+            
+            // Reatachar o event listener
+            document.getElementById('formToggleLink').addEventListener('click', toggleAuthMode);
+        });
+
+        // Fechar modal
+        closeModal.addEventListener('click', () => {
+            authModal.style.display = 'none';
+        });
+
+        // Fechar modal ao clicar fora dele
+        window.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                authModal.style.display = 'none';
+            }
+        });
+
+        // Processar formulário de login/cadastro
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (isLoginMode) {
+                // Verificar se o usuário existe no localStorage
+                const users = JSON.parse(localStorage.getItem('boxStoreUsers')) || [];
+                const user = users.find(u => u.username === username && u.password === password);
+                
+                if (user) {
+                    alert(`Bem-vindo de volta, ${username}!`);
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    authModal.style.display = 'none';
+                } else {
+                    alert('Usuário ou senha incorretos!');
+                }
+            } else {
+                // Criar nova conta
+                if (!email) {
+                    alert('Por favor, informe um e-mail válido!');
+                    return;
+                }
+                
+                const newUser = {
+                    username,
+                    email,
+                    password,
+                    games: []
+                };
+                
+                const users = JSON.parse(localStorage.getItem('boxStoreUsers')) || [];
+                
+                // Verificar se o usuário já existe
+                if (users.some(u => u.username === username)) {
+                    alert('Nome de usuário já existe!');
+                    return;
+                }
+                
+                users.push(newUser);
+                localStorage.setItem('boxStoreUsers', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(newUser));
+                
+                alert(`Conta criada com sucesso! Bem-vindo, ${username}!`);
+                authModal.style.display = 'none';
+            }
+        });
+
+        // Botões de download/jogar
+        downloadButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const gameName = this.getAttribute('data-game');
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                
+                if (!currentUser) {
+                    alert('Por favor, faça login ou crie uma conta para jogar!');
+                    authModal.style.display = 'flex';
+                    return;
+                }
+                
+                // Adicionar jogo à biblioteca do usuário
+                const users = JSON.parse(localStorage.getItem('boxStoreUsers'));
+                const userIndex = users.findIndex(u => u.username === currentUser.username);
+                
+                if (!users[userIndex].games.includes(gameName)) {
+                    users[userIndex].games.push(gameName);
+                    localStorage.setItem('boxStoreUsers', JSON.stringify(users));
+                    localStorage.setItem('currentUser', JSON.stringify(users[userIndex]));
+                }
+                
+                alert(`Iniciando download de ${gameName}! Aproveite o jogo!`);
+            });
+        });
+
+        // Modo de tela cheia
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                // Entrar em tela cheia
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+                
+                body.classList.add('fullscreen-mode');
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                isFullscreen = true;
+            } else {
+                // Sair da tela cheia
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+                
+                body.classList.remove('fullscreen-mode');
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                isFullscreen = false;
+            }
+        }
+
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+        // Detectar mudanças no modo de tela cheia
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        function handleFullscreenChange() {
+            if (!document.fullscreenElement && !document.webkitFullscreenElement && 
+                !document.mozFullScreenElement && !document.msFullscreenElement) {
+                body.classList.remove('fullscreen-mode');
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                isFullscreen = false;
+            }
+        }
+
+        // Inicialização
+        window.addEventListener('DOMContentLoaded', () => {
+            // Esconder campo de e-mail no login por padrão
+            emailField.style.display = 'none';
+            
+            // Verificar se há usuário logado
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                loginBtn.textContent = currentUser.username;
+                signupBtn.textContent = 'Sair';
+                
+                // Alterar comportamento do botão de cadastro para logout
+                signupBtn.addEventListener('click', () => {
+                    localStorage.removeItem('currentUser');
+                    alert('Logout realizado com sucesso!');
+                    location.reload();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
