@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de Loadstring</title>
+  <title>Box Scripter - Gerador de Loadstring</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -13,569 +14,381 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #4a148c 0%, #6a1b9a 50%, #8e24aa 100%);
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Animated background particles */
-    .background-animation {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.6);
-      border-radius: 50%;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(180deg); }
+      color: #f0f0f0;
+      padding: 20px;
     }
 
     .container {
-      text-align: center;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 60px 40px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+      width: 100%;
       max-width: 800px;
-      width: 90%;
-      animation: slideIn 0.8s ease-out;
+      margin: 0 auto;
     }
 
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(100, 100, 100, 0.3);
     }
 
     .logo {
-      font-size: 4em;
+      font-size: 3em;
       font-weight: bold;
       color: #fff;
       margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      background: linear-gradient(45deg, #fff, #f0f0f0);
+      text-shadow: 0 0 15px rgba(120, 0, 255, 0.8);
+      background: linear-gradient(45deg, #fff, #c0c0c0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: pulse 2s ease-in-out infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(100, 100, 100, 0.5), transparent);
+      margin: 30px 0;
     }
 
-    .subtitle {
-      font-size: 1.8em;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 20px;
-      font-weight: 400;
-      letter-spacing: 1px;
-    }
-
-    .description {
-      font-size: 1.1em;
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 40px;
-      line-height: 1.6;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .loadstring-section {
-      background: rgba(0, 0, 0, 0.3);
+    .section {
+      background: rgba(20, 20, 20, 0.8);
       border-radius: 15px;
-      padding: 30px;
+      padding: 25px;
+      border: 1px solid rgba(100, 100, 100, 0.2);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       margin-bottom: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .loadstring-title {
-      font-size: 1.5em;
-      color: #00ff88;
+    .section-title {
+      font-size: 1.8em;
       margin-bottom: 20px;
-      text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-    }
-
-    .input-group {
-      margin-bottom: 25px;
-      text-align: left;
-    }
-
-    .input-label {
-      display: block;
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 1.1em;
-      margin-bottom: 10px;
-      font-weight: 500;
-    }
-
-    .url-input {
-      width: 100%;
-      padding: 15px;
-      font-size: 1.1em;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.5);
       color: #fff;
-      transition: all 0.3s ease;
-      font-family: 'Courier New', monospace;
+      border-bottom: 2px solid rgba(120, 0, 255, 0.7);
+      padding-bottom: 10px;
+      text-align: center;
     }
 
-    .url-input:focus {
-      outline: none;
-      border-color: #00ff88;
-      box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
-    }
-
-    .url-input::placeholder {
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .generated-code {
-      font-family: 'Courier New', monospace;
-      font-size: 1em;
-      color: #00ff88;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 20px;
+    .custom-loadstring {
+      background: rgba(30, 30, 30, 0.8);
       border-radius: 10px;
-      word-break: break-all;
-      text-align: left;
-      margin-bottom: 20px;
-      border: 2px solid rgba(0, 255, 136, 0.3);
-      min-height: 80px;
-      display: flex;
-      align-items: center;
-      transition: all 0.3s ease;
+      padding: 20px;
     }
 
-    .generated-code.has-content {
-      border-color: #00ff88;
-      box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
-    }
-
-    .placeholder-text {
-      color: rgba(255, 255, 255, 0.4);
-      font-style: italic;
-    }
-
-    .btn-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .btn-row {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 18px 40px;
-      background: linear-gradient(45deg, #6200ea, #8a2be2);
-      color: white;
-      text-decoration: none;
-      border-radius: 50px;
-      font-size: 1.3em;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 25px rgba(98, 0, 234, 0.3);
+    .input-container {
       position: relative;
-      overflow: hidden;
-      border: none;
-      cursor: pointer;
-      min-width: 180px;
+      margin-bottom: 20px;
     }
 
-    .btn-generate {
-      background: linear-gradient(45deg, #00c851, #00a085);
-      box-shadow: 0 8px 25px rgba(0, 200, 81, 0.3);
-    }
-
-    .btn-copy {
-      background: linear-gradient(45deg, #2196f3, #1976d2);
-      box-shadow: 0 8px 25px rgba(33, 150, 243, 0.3);
-    }
-
-    .btn-back {
-      background: linear-gradient(45deg, #ff4444, #cc0000);
-      box-shadow: 0 8px 25px rgba(255, 68, 68, 0.3);
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
+    .input-container input {
       width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .btn:hover::before {
-      left: 100%;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(98, 0, 234, 0.4);
-    }
-
-    .btn-generate:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(0, 200, 81, 0.4);
-      background: linear-gradient(45deg, #00e676, #00b894);
-    }
-
-    .btn-copy:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(33, 150, 243, 0.4);
-      background: linear-gradient(45deg, #42a5f5, #1e88e5);
-    }
-
-    .btn-copy:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: 0 8px 25px rgba(33, 150, 243, 0.3);
-    }
-
-    .btn-copy:disabled:hover {
-      transform: none;
-      box-shadow: 0 8px 25px rgba(33, 150, 243, 0.3);
-      background: linear-gradient(45deg, #2196f3, #1976d2);
-    }
-
-    .btn-back:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(255, 68, 68, 0.4);
-      background: linear-gradient(45deg, #ff6b6b, #e55353);
-    }
-
-    .btn:active {
-      transform: translateY(-1px);
-    }
-
-    .success-message {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: linear-gradient(45deg, #00c851, #00a085);
+      padding: 12px 45px 12px 15px;
+      background: rgba(40, 40, 40, 0.8);
+      border: 1px solid rgba(100, 100, 100, 0.3);
+      border-radius: 8px;
       color: white;
-      padding: 15px 25px;
-      border-radius: 50px;
-      font-weight: 600;
-      box-shadow: 0 10px 30px rgba(0, 200, 81, 0.3);
-      transform: translateX(400px);
-      transition: all 0.3s ease;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      font-family: monospace;
+      font-size: 0.95em;
     }
 
-    .success-message.show {
-      transform: translateX(0);
+    .input-container input:focus {
+      outline: none;
+      border-color: rgba(120, 0, 255, 0.5);
+      box-shadow: 0 0 10px rgba(120, 0, 255, 0.3);
+    }
+
+    .input-container .clear-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: rgba(200, 200, 200, 0.7);
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+
+    .input-container .clear-btn:hover {
+      color: #fff;
+    }
+
+    .validation-message {
+      margin-top: 8px;
+      font-size: 0.85em;
+      min-height: 20px;
+    }
+
+    .validation-message.valid {
+      color: #4caf50;
+    }
+
+    .validation-message.invalid {
+      color: #f44336;
+    }
+
+    .generate-btn {
+      background: linear-gradient(45deg, #4a148c, #6a1b9a);
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+
+    .generate-btn:hover:not(:disabled) {
+      background: linear-gradient(45deg, #6a1b9a, #8e24aa);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(120, 0, 255, 0.5);
+    }
+
+    .generate-btn:disabled {
+      background: rgba(80, 80, 80, 0.5);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .result-box {
+      background: rgba(40, 40, 40, 0.8);
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 20px;
+      border: 1px solid rgba(100, 100, 100, 0.3);
+      font-family: monospace;
+      word-break: break-all;
+      position: relative;
+      display: none;
+    }
+
+    .result-box .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(120, 0, 255, 0.3);
+      border: none;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background 0.3s;
+    }
+
+    .result-box .copy-btn:hover {
+      background: rgba(120, 0, 255, 0.5);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(40, 40, 40, 0.9);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .toast.show {
+      opacity: 1;
     }
 
     .footer {
-      position: absolute;
-      bottom: 20px;
-      color: rgba(255, 255, 255, 0.6);
+      margin-top: 50px;
+      text-align: center;
+      color: rgba(150, 150, 150, 0.7);
+      font-size: 0.9em;
+      padding: 20px 0;
+    }
+
+    .instructions {
+      margin-top: 20px;
+      background: rgba(40, 40, 40, 0.5);
+      padding: 15px;
+      border-radius: 8px;
       font-size: 0.9em;
     }
 
-    @media (max-width: 600px) {
-      .container {
-        padding: 40px 20px;
-      }
-      
-      .logo {
-        font-size: 3em;
-      }
-      
-      .subtitle {
-        font-size: 1.4em;
-      }
-      
-      .description {
-        font-size: 1em;
-      }
-      
-      .btn {
-        padding: 15px 25px;
-        font-size: 1.1em;
-        min-width: 150px;
-      }
-
-      .btn-row {
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .generated-code {
-        font-size: 0.9em;
-      }
-
-      .success-message {
-        top: 10px;
-        right: 10px;
-        left: 10px;
-        transform: translateY(-100px);
-      }
-
-      .success-message.show {
-        transform: translateY(0);
-      }
-
-      .loadstring-section {
-        padding: 20px;
-      }
-
-      .url-input {
-        font-size: 1em;
-        padding: 12px;
-      }
+    .instructions h3 {
+      margin-bottom: 10px;
+      color: #fff;
+      text-align: center;
     }
 
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
+    .instructions ol {
+      padding-left: 20px;
+    }
+
+    .instructions li {
+      margin-bottom: 8px;
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
-  <div class="background-animation">
-    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-    <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
-    <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
-    <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
-    <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
-    <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
-    <div class="particle" style="left: 70%; animation-delay: 2s;"></div>
-    <div class="particle" style="left: 80%; animation-delay: 3s;"></div>
-    <div class="particle" style="left: 90%; animation-delay: 1s;"></div>
-  </div>
-
-  <div class="success-message" id="successMessage">
-    <span>✅</span>
-    <span>Loadstring copiado com sucesso!</span>
-  </div>
-
   <div class="container">
-    <div class="logo">Gerador de Loadstring</div>
-    
-    <div class="loadstring-section">
-      <div class="loadstring-title">⚡ Gerar Loadstring</div>
-      
-      <div class="input-group">
-        <label class="input-label" for="urlInput">Digite a URL do seu script:</label>
-        <input 
-          type="url" 
-          id="urlInput" 
-          class="url-input" 
-          placeholder="https://exemplo.com/seu-script.lua"
-          autocomplete="off"
-        />
-      </div>
+    <header>
+      <div class="logo">Box Scripter</div>
+      <p>Gerador de Loadstring Universal</p>
+    </header>
 
-      <div class="input-group">
-        <label class="input-label">Código Loadstring Gerado:</label>
-        <div class="generated-code" id="generatedCode">
-          <span class="placeholder-text">O loadstring aparecerá aqui após gerar...</span>
-        </div>
-      </div>
-
-      <div class="btn-container">
-        <div class="btn-row">
-          <button class="btn btn-generate" onclick="generateLoadstring()">
-            ⚡ Gerar Loadstring
+    <div class="section">
+      <h2 class="section-title">Gerador de Loadstring</h2>
+      <div class="custom-loadstring">
+        <div class="input-container">
+          <input type="text" id="rawInput" placeholder="Cole o link raw aqui...">
+          <button class="clear-btn" id="clearBtn">
+            <i class="fas fa-times"></i>
           </button>
-          <button class="btn btn-copy" id="copyBtn" onclick="copyLoadstring()" disabled>
-            📋 Copiar Código
-          </button>
+          <div class="validation-message" id="validationMessage"></div>
         </div>
-        <div class="btn-row">
-          <a href="https://mts13gamer.github.io/Dev-Scripter/tools.html" class="btn btn-back">
-            ← Voltar
-          </a>
+        
+        <button id="generateBtn" class="generate-btn" disabled>
+          <i class="fas fa-code"></i> Gerar Loadstring
+        </button>
+        
+        <div id="resultContainer" class="result-box">
+          <button class="copy-btn" id="copyResultBtn">
+            <i class="fas fa-copy"></i> Copiar
+          </button>
+          <div id="loadstringResult"></div>
         </div>
       </div>
     </div>
+
+    <div class="instructions">
+      <h3>Como usar:</h3>
+      <ol>
+        <li>Cole o link raw do script no campo acima</li>
+        <li>O link pode ser de qualquer site (GitHub, Pastebin, etc)</li>
+        <li>Não é necessário que o link termine com .lua</li>
+        <li>Clique em "Gerar Loadstring"</li>
+        <li>Copie o loadstring gerado e use no seu executor</li>
+      </ol>
+    </div>
+
+    <div class="footer">
+      © 2025 Box Scripter
+    </div>
   </div>
 
-  <div class="footer">
-    © 2025 Dev Scripter - Loadstring
-  </div>
+  <div class="toast" id="toast"></div>
 
   <script>
-    let generatedLoadstring = '';
+    // Elementos DOM
+    const rawInput = document.getElementById('rawInput');
+    const clearBtn = document.getElementById('clearBtn');
+    const generateBtn = document.getElementById('generateBtn');
+    const validationMessage = document.getElementById('validationMessage');
+    const resultContainer = document.getElementById('resultContainer');
+    const loadstringResult = document.getElementById('loadstringResult');
+    const copyResultBtn = document.getElementById('copyResultBtn');
+    const toast = document.getElementById('toast');
 
-    // Adiciona mais partículas dinamicamente
-    document.addEventListener('DOMContentLoaded', function() {
-      const backgroundAnimation = document.querySelector('.background-animation');
-      
-      for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 6 + 's';
-        particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
-        backgroundAnimation.appendChild(particle);
-      }
-    });
-
-    // Função para gerar loadstring
-    function generateLoadstring() {
-      const urlInput = document.getElementById('urlInput');
-      const generatedCode = document.getElementById('generatedCode');
-      const copyBtn = document.getElementById('copyBtn');
-      const url = urlInput.value.trim();
-
-      // Validação básica da URL
-      if (!url) {
-        alert('Por favor, digite uma URL válida!');
-        urlInput.focus();
-        return;
-      }
-
-      // Validação mais rigorosa da URL
+    // Função para validar se é um link válido
+    function isValidLink(url) {
       try {
-        new URL(url);
+        const parsedUrl = new URL(url);
+        return parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:';
       } catch (e) {
-        alert('Por favor, digite uma URL válida! (ex: https://exemplo.com/script.lua)');
-        urlInput.focus();
+        return false;
+      }
+    }
+
+    // Função para validar o input
+    function validateInput() {
+      const input = rawInput.value.trim();
+      
+      if (!input) {
+        validationMessage.textContent = "";
+        validationMessage.className = "validation-message";
+        generateBtn.disabled = true;
         return;
       }
-
-      // Gera o loadstring
-      generatedLoadstring = `loadstring(game:HttpGet("${url}"))()`;
       
-      // Exibe o código gerado
-      generatedCode.textContent = generatedLoadstring;
-      generatedCode.classList.add('has-content');
-      
-      // Habilita o botão de copiar
-      copyBtn.disabled = false;
-      
-      // Adiciona efeito visual
-      generatedCode.style.animation = 'none';
-      setTimeout(() => {
-        generatedCode.style.animation = 'slideIn 0.5s ease-out';
-      }, 10);
+      if (isValidLink(input)) {
+        validationMessage.textContent = "✓ Link válido!";
+        validationMessage.className = "validation-message valid";
+        generateBtn.disabled = false;
+      } else {
+        validationMessage.textContent = "✗ Por favor, insira um link válido (http ou https)";
+        validationMessage.className = "validation-message invalid";
+        generateBtn.disabled = true;
+      }
     }
 
-    // Função para copiar o loadstring
-    function copyLoadstring() {
-      if (!generatedLoadstring) return;
-      
-      // Cria um elemento temporário para copiar o texto
-      const tempElement = document.createElement('textarea');
-      tempElement.value = generatedLoadstring;
-      document.body.appendChild(tempElement);
-      
-      // Seleciona e copia o texto
-      tempElement.select();
-      tempElement.setSelectionRange(0, 99999);
-      document.execCommand('copy');
-      
-      // Remove o elemento temporário
-      document.body.removeChild(tempElement);
-      
-      // Mostra mensagem de sucesso
-      showSuccessMessage();
-    }
-
-    // Função para mostrar mensagem de sucesso
-    function showSuccessMessage() {
-      const successMessage = document.getElementById('successMessage');
-      successMessage.classList.add('show');
+    // Função para mostrar notificação
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
       
       setTimeout(() => {
-        successMessage.classList.remove('show');
+        toast.classList.remove('show');
       }, 3000);
     }
 
-    // Permite gerar loadstring pressionando Enter
-    document.getElementById('urlInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        generateLoadstring();
+    // Função para gerar loadstring
+    function generateLoadstring() {
+      const input = rawInput.value.trim();
+      
+      if (!isValidLink(input)) {
+        showToast("Por favor, insira um link válido.");
+        return;
       }
-    });
+      
+      const loadstring = `loadstring(game:HttpGet("${input}", true))()`;
+      loadstringResult.textContent = loadstring;
+      resultContainer.style.display = 'block';
+      
+      // Scroll para o resultado
+      resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      
+      showToast('Loadstring gerado com sucesso!');
+    }
 
-    // Adiciona efeito de clique nos botões
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        if (this.disabled) return;
-        
-        const ripple = document.createElement('div');
-        ripple.style.position = 'absolute';
-        ripple.style.borderRadius = '50%';
-        ripple.style.background = 'rgba(255, 255, 255, 0.6)';
-        ripple.style.transform = 'scale(0)';
-        ripple.style.animation = 'ripple 0.6s linear';
-        ripple.style.left = (e.clientX - e.target.offsetLeft) + 'px';
-        ripple.style.top = (e.clientY - e.target.offsetTop) + 'px';
-        
-        e.target.appendChild(ripple);
-        
-        setTimeout(() => {
-          ripple.remove();
-        }, 600);
+    // Função para limpar o input
+    function clearInput() {
+      rawInput.value = "";
+      validateInput();
+      resultContainer.style.display = 'none';
+      rawInput.focus();
+    }
+
+    // Event Listeners
+    rawInput.addEventListener('input', validateInput);
+    rawInput.addEventListener('paste', validateInput);
+    
+    generateBtn.addEventListener('click', generateLoadstring);
+    
+    clearBtn.addEventListener('click', clearInput);
+    
+    copyResultBtn.addEventListener('click', () => {
+      const textToCopy = loadstringResult.textContent;
+      
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        showToast('Loadstring copiado para a área de transferência!');
+      }).catch(err => {
+        console.error('Erro ao copiar texto: ', err);
+        showToast('Erro ao copiar. Tente novamente.');
       });
     });
 
-    // Limpa o código gerado quando a URL é modificada
-    document.getElementById('urlInput').addEventListener('input', function() {
-      const generatedCode = document.getElementById('generatedCode');
-      const copyBtn = document.getElementById('copyBtn');
-      
-      if (generatedLoadstring && this.value !== extractUrlFromLoadstring(generatedLoadstring)) {
-        generatedCode.innerHTML = '<span class="placeholder-text">O loadstring aparecerá aqui após gerar...</span>';
-        generatedCode.classList.remove('has-content');
-        copyBtn.disabled = true;
-        generatedLoadstring = '';
-      }
+    // Focar no input quando a página carregar
+    window.addEventListener('load', () => {
+      rawInput.focus();
     });
-
-    // Função auxiliar para extrair URL do loadstring
-    function extractUrlFromLoadstring(loadstring) {
-      const match = loadstring.match(/loadstring\(game:HttpGet\("(.+?)"\)\)\(\)/);
-      return match ? match[1] : '';
-    }
   </script>
 </body>
 </html>
