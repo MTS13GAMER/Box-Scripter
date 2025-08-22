@@ -34,6 +34,31 @@
       margin-bottom: 40px;
       padding: 20px 0;
       border-bottom: 1px solid rgba(100, 100, 100, 0.3);
+      position: relative;
+    }
+
+    .back-button {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(45deg, #4a148c, #6a1b9a);
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .back-button:hover {
+      background: linear-gradient(45deg, #6a1b9a, #8e24aa);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(120, 0, 255, 0.5);
+      transform: translateY(-50%) scale(1.05);
     }
 
     .logo {
@@ -240,6 +265,9 @@
 <body>
   <div class="container">
     <header>
+      <a href="https://mts13gamer.github.io/Box-Scripter/index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Voltar
+      </a>
       <div class="logo">Box Scripter</div>
       <p>Gerador de Loadstring Universal</p>
     </header>
