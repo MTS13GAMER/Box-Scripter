@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IA Scripts</title>
+  <title>Escolha sua IA - Box Scripter</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -13,318 +14,515 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #4a148c 0%, #6a1b9a 50%, #8e24aa 100%);
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Animated background particles */
-    .background-animation {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.6);
-      border-radius: 50%;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(180deg); }
+      color: #f0f0f0;
+      padding: 20px;
     }
 
     .container {
-      text-align: center;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 60px 40px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      width: 90%;
-      animation: slideIn 0.8s ease-out;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(100, 100, 100, 0.3);
+      position: relative;
+    }
+
+    .back-button {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(45deg, #4a148c, #6a1b9a);
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .back-button:hover {
+      background: linear-gradient(45deg, #6a1b9a, #8e24aa);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(120, 0, 255, 0.5);
+      transform: translateY(-50%) scale(1.05);
     }
 
     .logo {
-      font-size: 4em;
+      font-size: 3em;
       font-weight: bold;
       color: #fff;
       margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      background: linear-gradient(45deg, #fff, #f0f0f0);
+      text-shadow: 0 0 15px rgba(120, 0, 255, 0.8);
+      background: linear-gradient(45deg, #fff, #c0c0c0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
     }
 
     .subtitle {
-      font-size: 1.5em;
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(200, 200, 200, 0.8);
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(100, 100, 100, 0.5), transparent);
+      margin: 30px 0;
+    }
+
+    .selection-section {
+      text-align: center;
       margin-bottom: 40px;
-      font-weight: 300;
-      letter-spacing: 1px;
     }
 
-    .description {
-      font-size: 1.1em;
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 40px;
-      line-height: 1.6;
+    .selection-title {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(120, 0, 255, 0.5);
     }
 
-    .btn-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
     }
 
-    .btn-row {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 18px 40px;
-      background: linear-gradient(45deg, #6200ea, #8a2be2);
-      color: white;
-      text-decoration: none;
-      border-radius: 50px;
-      font-size: 1.3em;
-      font-weight: 600;
+    .ai-card {
+      background: rgba(20, 20, 20, 0.8);
+      border-radius: 15px;
+      padding: 30px;
+      border: 1px solid rgba(100, 100, 100, 0.2);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       transition: all 0.3s ease;
-      box-shadow: 0 8px 25px rgba(98, 0, 234, 0.3);
+      text-align: center;
+      cursor: pointer;
       position: relative;
       overflow: hidden;
-      border: none;
-      cursor: pointer;
-      min-width: 200px;
-      text-align: center;
     }
 
-    .btn-claude {
-      background: linear-gradient(45deg, #FF6B35, #F7931E);
-      box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
-    }
-
-    .btn-claude:hover {
-      background: linear-gradient(45deg, #FF5722, #E65100);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(255, 107, 53, 0.4);
-    }
-
-    .btn-chatgpt {
-      background: linear-gradient(45deg, #00A67E, #10A37F);
-      box-shadow: 0 8px 25px rgba(0, 166, 126, 0.3);
-    }
-
-    .btn-chatgpt:hover {
-      background: linear-gradient(45deg, #00B388, #0F9F73);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(0, 166, 126, 0.4);
-    }
-
-    /* Estilo específico para o botão Voltar */
-    .btn-back {
-      background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-      font-size: 1.2em;
-      padding: 16px 35px;
-      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
-      margin-top: 20px;
-    }
-
-    .btn-back:hover {
-      background: linear-gradient(45deg, #ff5252, #d84315);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
-    }
-
-    .btn::before {
+    .ai-card::before {
       content: '';
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s ease;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #4a148c, #6a1b9a);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
-    .btn:hover::before {
-      left: 100%;
+    .ai-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(120, 0, 255, 0.4);
     }
 
-    .btn:active {
-      transform: translateY(-1px);
+    .ai-card:hover::before {
+      opacity: 1;
+    }
+
+    .ai-card.selected {
+      border-color: rgba(120, 0, 255, 0.7);
+      box-shadow: 0 0 25px rgba(120, 0, 255, 0.5);
+    }
+
+    .ai-card.selected::before {
+      opacity: 1;
+    }
+
+    .ai-icon {
+      font-size: 3.5em;
+      margin-bottom: 20px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ai-card:nth-child(1) .ai-icon {
+      color: #10a37f; /* Verde do ChatGPT */
+    }
+
+    .ai-card:nth-child(2) .ai-icon {
+      color: #d477ff; /* Roxo do Claude */
+    }
+
+    .ai-card:nth-child(3) .ai-icon {
+      color: #ff7b31; /* Laranja para a Box IA */
+    }
+
+    .ai-name {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      color: #fff;
     }
 
     .ai-description {
-      font-size: 1em;
-      color: rgba(255, 255, 255, 0.7);
-      margin-top: 30px;
-      line-height: 1.5;
+      color: rgba(200, 200, 200, 0.8);
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .select-button {
+      background: linear-gradient(45deg, #4a148c, #6a1b9a);
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      width: 100%;
+    }
+
+    .select-button:hover {
+      background: linear-gradient(45deg, #6a1b9a, #8e24aa);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(120, 0, 255, 0.5);
+    }
+
+    .confirm-section {
       text-align: center;
+      margin-top: 50px;
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .confirm-section.visible {
+      opacity: 1;
+      height: auto;
+    }
+
+    .confirm-button {
+      background: linear-gradient(45deg, #10a37f, #14b88c);
+      border: none;
+      color: white;
+      padding: 15px 40px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.2em;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .confirm-button:hover {
+      background: linear-gradient(45deg, #14b88c, #18d49a);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(16, 163, 127, 0.5);
+      transform: scale(1.05);
+    }
+
+    .selected-ai {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(120, 0, 255, 0.5);
     }
 
     .footer {
-      position: absolute;
-      bottom: 20px;
-      color: rgba(255, 255, 255, 0.6);
+      margin-top: 50px;
+      text-align: center;
+      color: rgba(150, 150, 150, 0.7);
       font-size: 0.9em;
+      padding: 20px 0;
     }
 
-    @media (max-width: 600px) {
-      .container {
-        padding: 40px 20px;
-      }
-      
-      .logo {
-        font-size: 3em;
-      }
-      
-      .subtitle {
-        font-size: 1.2em;
-      }
-      
-      .btn {
-        padding: 15px 25px;
-        font-size: 1.1em;
-        min-width: 180px;
-      }
-
-      .btn-back {
-        padding: 14px 25px;
-        font-size: 1.1em;
-      }
-
-      .btn-row {
-        flex-direction: column;
-        gap: 15px;
-      }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(40, 40, 40, 0.9);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
+    .toast.show {
+      opacity: 1;
+    }
+
+    .redirect-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .redirect-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .redirect-spinner {
+      font-size: 4em;
+      color: #ff7b31;
+      margin-bottom: 20px;
+    }
+
+    .redirect-text {
+      font-size: 1.5em;
+      color: white;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .redirect-button {
+      background: linear-gradient(45deg, #ff7b31, #ff9b5c);
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .redirect-button:hover {
+      background: linear-gradient(45deg, #ff9b5c, #ffb98a);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 123, 49, 0.5);
     }
   </style>
 </head>
 <body>
-  <div class="background-animation">
-    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-    <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
-    <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
-    <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
-    <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
-    <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
-    <div class="particle" style="left: 70%; animation-delay: 2s;"></div>
-    <div class="particle" style="left: 80%; animation-delay: 3s;"></div>
-    <div class="particle" style="left: 90%; animation-delay: 1s;"></div>
-  </div>
-
   <div class="container">
-    <div class="logo">IA SCRIPTS</div>
-    <div class="subtitle">Escolha sua IA favorita</div>
-    
-    <div class="btn-container">
-      <div class="btn-row">
-        <a href="https://claude.ai" target="_blank" class="btn btn-claude">
-          🤖 Claude AI
-        </a>
-        <a href="https://chatgpt.com" target="_blank" class="btn btn-chatgpt">
-          💬 ChatGPT
-        </a>
+    <header>
+      <a href="https://mts13gamer.github.io/Box-Scripter/index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Voltar
+      </a>
+      <div class="logo">Box Scripter</div>
+      <p class="subtitle">Sistema de Escolha de IA</p>
+    </header>
+
+    <div class="selection-section">
+      <h2 class="selection-title">Escolha sua IA</h2>
+      <p>Selecione uma das opções abaixo para continuar</p>
+    </div>
+
+    <div class="ai-grid">
+      <div class="ai-card" data-ai="chatgpt">
+        <div class="ai-icon">
+          <i class="fas fa-robot"></i>
+        </div>
+        <h3 class="ai-name">ChatGPT</h3>
+        <p class="ai-description">IA versátil da OpenAI, ideal para conversas naturais, geração de texto criativo e resolução de problemas diversos.</p>
+        <button class="select-button">Selecionar ChatGPT</button>
       </div>
-      
-      <div class="ai-description">
-        <strong>Claude AI:</strong> IA da Anthropic focada em ser útil, inofensiva e honesta<br>
-        <strong>ChatGPT:</strong> IA da OpenAI especializada em conversação e geração de código
+
+      <div class="ai-card" data-ai="claude">
+        <div class="ai-icon">
+          <i class="fas fa-brain"></i>
+        </div>
+        <h3 class="ai-name">Claude</h3>
+        <p class="ai-description">IA da Anthropic focada em diálogo útil, honesto e inofensivo, com habilidades avançadas de raciocínio.</p>
+        <button class="select-button">Selecionar Claude</button>
       </div>
-      
-      <div class="btn-row">
-        <a href="https://mts13gamer.github.io/Dev-Scripter/tools.html" class="btn btn-back">
-          ← Voltar
-        </a>
+
+      <div class="ai-card" data-ai="boxai">
+        <div class="ai-icon">
+          <i class="fas fa-cube"></i>
+        </div>
+        <h3 class="ai-name">Box IA</h3>
+        <p class="ai-description">IA especializada da Box Scripter, otimizada para criação de scripts e soluções personalizadas no Poe.com.</p>
+        <button class="select-button">Selecionar Box IA</button>
       </div>
+    </div>
+
+    <div class="confirm-section" id="confirmSection">
+      <div class="selected-ai" id="selectedAiText">Você selecionou: ChatGPT</div>
+      <button class="confirm-button" id="confirmButton">
+        Confirmar Escolha
+      </button>
+    </div>
+
+    <div class="redirect-overlay" id="redirectOverlay">
+      <div class="redirect-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
+      <div class="redirect-text" id="redirectText">Redirecionando para Box IA...</div>
+      <button class="redirect-button" id="redirectNowButton">
+        Ir Agora
+      </button>
+    </div>
+
+    <div class="footer">
+      © 2025 Box Scripter - Sistema de IA
     </div>
   </div>
 
-  <div class="footer">
-    © 2025 Dev Scripter - IA Scripts
-  </div>
+  <div class="toast" id="toast"></div>
 
   <script>
-    // Adiciona mais partículas dinamicamente
-    document.addEventListener('DOMContentLoaded', function() {
-      const backgroundAnimation = document.querySelector('.background-animation');
-      
-      for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 6 + 's';
-        particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
-        backgroundAnimation.appendChild(particle);
-      }
-    });
+    // Elementos DOM
+    const aiCards = document.querySelectorAll('.ai-card');
+    const confirmSection = document.getElementById('confirmSection');
+    const selectedAiText = document.getElementById('selectedAiText');
+    const confirmButton = document.getElementById('confirmButton');
+    const redirectOverlay = document.getElementById('redirectOverlay');
+    const redirectText = document.getElementById('redirectText');
+    const redirectNowButton = document.getElementById('redirectNowButton');
+    const toast = document.getElementById('toast');
 
-    // Adiciona efeito de clique nos botões
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        const ripple = document.createElement('div');
-        ripple.style.position = 'absolute';
-        ripple.style.borderRadius = '50%';
-        ripple.style.background = 'rgba(255, 255, 255, 0.6)';
-        ripple.style.transform = 'scale(0)';
-        ripple.style.animation = 'ripple 0.6s linear';
-        ripple.style.left = (e.clientX - e.target.offsetLeft) + 'px';
-        ripple.style.top = (e.clientY - e.target.offsetTop) + 'px';
+    // IA selecionada
+    let selectedAI = null;
+
+    // Função para mostrar notificação
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Função para selecionar uma IA
+    function selectAI(card) {
+      // Remover seleção anterior
+      aiCards.forEach(c => c.classList.remove('selected'));
+      
+      // Adicionar seleção atual
+      card.classList.add('selected');
+      
+      // Atualizar IA selecionada
+      selectedAI = card.getAttribute('data-ai');
+      
+      // Atualizar texto de confirmação
+      let aiName = '';
+      switch(selectedAI) {
+        case 'chatgpt':
+          aiName = 'ChatGPT';
+          break;
+        case 'claude':
+          aiName = 'Claude';
+          break;
+        case 'boxai':
+          aiName = 'Box IA';
+          break;
+      }
+      selectedAiText.textContent = `Você selecionou: ${aiName}`;
+      
+      // Mostrar seção de confirmação
+      confirmSection.classList.add('visible');
+      
+      // Scroll para a seção de confirmação
+      setTimeout(() => {
+        confirmSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 300);
+    }
+
+    // Função para redirecionar para a Box IA
+    function redirectToBoxIA() {
+      redirectOverlay.classList.add('visible');
+      
+      // Contagem regressiva para redirecionamento automático
+      let countdown = 5;
+      redirectText.textContent = `Redirecionando para Box IA em ${countdown}...`;
+      
+      const countdownInterval = setInterval(() => {
+        countdown--;
         
-        e.target.appendChild(ripple);
+        if (countdown > 0) {
+          redirectText.textContent = `Redirecionando para Box IA em ${countdown}...`;
+        } else {
+          clearInterval(countdownInterval);
+          window.location.href = 'https://poe.com/NeoBoxIa';
+        }
+      }, 1000);
+    }
+
+    // Função para confirmar a escolha
+    function confirmSelection() {
+      if (!selectedAI) {
+        showToast('Por favor, selecione uma IA primeiro.');
+        return;
+      }
+      
+      if (selectedAI === 'boxai') {
+        // Redirecionar imediatamente para a Box IA
+        redirectToBoxIA();
+      } else {
+        // Simular carregamento para outras IAs
+        showToast(`Sistema de ${selectedAI.toUpperCase()} carregado com sucesso!`);
         
-        setTimeout(() => {
-          ripple.remove();
-        }, 600);
+        // Em um caso real, você faria:
+        // window.location.href = `https://seu-site.com/${selectedAI}`;
+      }
+    }
+
+    // Adicionar event listeners para os cards de IA
+    aiCards.forEach(card => {
+      card.addEventListener('click', () => {
+        selectAI(card);
       });
     });
+
+    // Adicionar event listeners para os botões de seleção
+    document.querySelectorAll('.select-button').forEach((button, index) => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation(); // Impedir que o evento se propague para o card
+        selectAI(aiCards[index]);
+      });
+    });
+
+    // Event listener para o botão de confirmação
+    confirmButton.addEventListener('click', confirmSelection);
+
+    // Event listener para o botão "Ir Agora" no overlay de redirecionamento
+    redirectNowButton.addEventListener('click', () => {
+      window.location.href = 'https://poe.com/NeoBoxIa';
+    });
+
+    // Se o parâmetro 'ai' estiver presente na URL, selecione automaticamente
+    const urlParams = new URLSearchParams(window.location.search);
+    const aiParam = urlParams.get('ai');
+    
+    if (aiParam) {
+      const aiCard = document.querySelector(`.ai-card[data-ai="${aiParam}"]`);
+      if (aiCard) {
+        selectAI(aiCard);
+        
+        // Se for a Box IA, redirecione automaticamente
+        if (aiParam === 'boxai') {
+          setTimeout(confirmSelection, 1000);
+        }
+      }
+    }
   </script>
 </body>
 </html>
