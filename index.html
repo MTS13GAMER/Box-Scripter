@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="BoxScripter.png"><!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Box Scripter</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Box Scripter | Executores</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -13,9 +14,9 @@
     }
 
     body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
       background: #000;
       color: #fff;
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
       overflow-x: hidden;
     }
 
@@ -45,12 +46,12 @@
       letter-spacing: -1px;
     }
 
-    nav {
+    .nav {
       display: flex;
       gap: 35px;
     }
 
-    nav a {
+    .nav a {
       color: #fff;
       text-decoration: none;
       font-weight: 600;
@@ -60,7 +61,7 @@
       padding: 8px 0;
     }
 
-    nav a::after {
+    .nav a::after {
       content: '';
       position: absolute;
       bottom: 0;
@@ -71,46 +72,67 @@
       transition: width 0.3s ease;
     }
 
-    nav a:hover {
+    .nav a:hover {
       color: #a855f7;
     }
 
-    nav a:hover::after {
+    .nav a:hover::after {
       width: 100%;
     }
 
-    /* Hero Section */
+    /* Hero */
     .hero {
-      height: 100vh;
+      height: 50vh;
+      min-height: 400px;
       background: 
-        linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
-        radial-gradient(ellipse at top, rgba(168, 85, 247, 0.3) 0%, rgba(0,0,0,0) 60%),
-        url("https://images.unsplash.com/photo-1518770660439-4636190af475") center/cover;
+        linear-gradient(to bottom, rgba(0,0,0,0.5), #000),
+        radial-gradient(ellipse at top, rgba(168, 85, 247, 0.4) 0%, rgba(0,0,0,0) 70%);
       display: flex;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      padding-left: 80px;
-      position: relative;
+      padding: 0 60px;
+      text-align: center;
+      margin-top: 80px;
+      animation: fadeIn 1s ease;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-      pointer-events: none;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    .hero-content {
-      max-width: 700px;
-      position: relative;
-      z-index: 1;
-      animation: fadeInUp 1s ease;
+    .hero h1 {
+      font-size: 64px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: slideDown 0.8s ease;
     }
 
-    @keyframes fadeInUp {
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero p {
+      max-width: 600px;
+      color: #ccc;
+      font-size: 20px;
+      line-height: 1.6;
+      animation: slideUp 0.8s ease;
+    }
+
+    @keyframes slideUp {
       from {
         opacity: 0;
         transform: translateY(30px);
@@ -121,89 +143,45 @@
       }
     }
 
-    .hero-content h1 {
-      font-size: 72px;
-      margin-bottom: 20px;
-      font-weight: 900;
-      line-height: 1.1;
+    /* Section */
+    .section {
+      padding: 60px 60px 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section h2 {
+      font-size: 36px;
+      margin-bottom: 30px;
+      font-weight: 800;
       background: linear-gradient(135deg, #fff 0%, #a855f7 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .hero-content p {
-      font-size: 22px;
-      color: #ccc;
-      margin-bottom: 35px;
-      line-height: 1.6;
-    }
-
-    .hero-content button {
-      padding: 18px 45px;
-      background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-      border: none;
-      color: #fff;
-      font-size: 18px;
-      font-weight: 700;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.4s ease;
-      box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-content button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transition: left 0.5s;
-    }
-
-    .hero-content button:hover::before {
-      left: 100%;
-    }
-
-    .hero-content button:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 15px 40px rgba(168, 85, 247, 0.6);
-    }
-
-    /* Section */
-    .section {
-      padding: 100px 80px;
-      background: linear-gradient(to bottom, #000, #0a0a0a);
-    }
-
-    .section h2 {
-      font-size: 42px;
-      margin-bottom: 50px;
-      font-weight: 800;
-      text-align: center;
-    }
-
-    /* Cards */
-    .cards {
+    /* Row */
+    .row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 35px;
-      max-width: 1400px;
-      margin: 0 auto;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+      padding-bottom: 30px;
     }
 
+    /* Card */
     .card {
-      background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+      background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(13, 13, 13, 0.9) 100%);
       border-radius: 20px;
-      overflow: hidden;
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      cursor: pointer;
-      border: 1px solid rgba(168, 85, 247, 0.1);
+      border: 1px solid rgba(168, 85, 247, 0.2);
       position: relative;
+      overflow: hidden;
+      min-height: 220px;
     }
 
     .card::before {
@@ -213,13 +191,13 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
       opacity: 0;
       transition: opacity 0.4s ease;
     }
 
     .card:hover {
-      transform: translateY(-15px) scale(1.03);
+      transform: translateY(-12px) scale(1.02);
       box-shadow: 0 25px 50px rgba(168, 85, 247, 0.5);
       border-color: rgba(168, 85, 247, 0.5);
     }
@@ -228,28 +206,21 @@
       opacity: 1;
     }
 
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-
-    .card:hover img {
-      transform: scale(1.1);
-    }
-
     .card-content {
-      padding: 25px;
       position: relative;
       z-index: 1;
     }
 
     .card h3 {
-      font-size: 24px;
-      margin-bottom: 10px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #fff 0%, #a855f7 100%);
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .card h3 i {
+      margin-right: 12px;
+      background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -257,18 +228,58 @@
 
     .card p {
       font-size: 16px;
-      color: #aaa;
-      line-height: 1.5;
+      color: #bbb;
+      line-height: 1.6;
+    }
+
+    .card a {
+      align-self: flex-start;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .card a:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.6);
+    }
+
+    .card a:active {
+      transform: scale(0.98);
+    }
+
+    /* Platform Badge */
+    .platform-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(168, 85, 247, 0.2);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #a855f7;
     }
 
     /* Footer */
     footer {
       text-align: center;
-      padding: 40px;
-      background: #000;
+      padding: 50px 20px;
       color: #666;
-      font-size: 14px;
+      font-size: 15px;
       border-top: 1px solid rgba(168, 85, 247, 0.1);
+      margin-top: 40px;
     }
 
     /* Responsive */
@@ -281,38 +292,43 @@
         font-size: 24px;
       }
 
-      nav {
+      .nav {
         gap: 20px;
       }
 
-      nav a {
+      .nav a {
         font-size: 14px;
       }
 
       .hero {
-        padding-left: 30px;
-        padding-right: 30px;
+        padding: 0 30px;
+        height: 40vh;
+        min-height: 350px;
       }
 
-      .hero-content h1 {
-        font-size: 48px;
+      .hero h1 {
+        font-size: 42px;
       }
 
-      .hero-content p {
-        font-size: 18px;
+      .hero p {
+        font-size: 16px;
       }
 
       .section {
-        padding: 60px 30px;
+        padding: 40px 30px 20px;
       }
 
       .section h2 {
-        font-size: 32px;
+        font-size: 28px;
       }
 
-      .cards {
+      .row {
         grid-template-columns: 1fr;
-        gap: 25px;
+        gap: 20px;
+      }
+
+      .card {
+        padding: 28px;
       }
     }
   </style>
@@ -320,54 +336,51 @@
 <body>
   <header>
     <div class="logo">Box Scripter</div>
-    <nav>
-      <a href='/loadstring'><i class="fas fa-code"></i> Loadstring</a>
-      <a href='/scripts'><i class="fas fa-file-code"></i> Scripts</a>
+    <nav class="nav">
+      <a href='/'><i class="fas fa-home"></i> Início</a>
       <a href="https://boxscripter.netlify.app/executores"><i class="fas fa-rocket"></i> Executores</a>
     </nav>
   </header>
 
   <section class="hero">
-    <div class="hero-content">
-      <h1>Scripts & Executores</h1>
-      <p>A melhor plataforma para scripts, loadstrings e executores Roblox. Tudo que você precisa em um só lugar.</p>
-      <button onclick="window.location.href='Scripts.html'">
-        <i class="fas fa-play"></i> Explorar Scripts
-      </button>
+    <h1><i class="fas fa-rocket"></i> Executores</h1>
+    <p>Os melhores executores para PC e Mobile, cuidadosamente selecionados e organizados para você.</p>
+  </section>
+
+  <section class="section">
+    <h2><i class="fas fa-desktop"></i> Executores para PC</h2>
+    <div class="row">
+      <div class="card">
+        <div class="card-content">
+          <div class="platform-badge"><i class="fas fa-windows"></i> Windows</div>
+          <h3><i class="fas fa-box"></i> Box Exploit</h3>
+          <p>Executor exclusivo e otimizado para PC com interface moderna e recursos avançados para melhor experiência</p>
+        </div>
+        <a href="https://github.com/MTS13GAMER/Box-Scripter/releases/download/exploit/Box.Exploit.rar">
+          <i class="fas fa-download"></i> Baixar Executor
+        </a>
+      </div>
     </div>
   </section>
 
   <section class="section">
-    <h2>Destaques</h2>
-    <div class="cards">
-      <div class="card" onclick="location.href='Loadstring.html'">
-        <img src="https://i.imgur.com/QnQZ7Nq.png" alt="Loadstrings">
+    <h2><i class="fas fa-mobile-alt"></i> Executores para Mobile</h2>
+    <div class="row">
+      <div class="card">
         <div class="card-content">
-          <h3><i class="fas fa-terminal"></i> Loadstrings</h3>
-          <p>Scripts prontos para execução rápida e eficiente</p>
+          <div class="platform-badge"><i class="fas fa-mobile-alt"></i> iOS & Android</div>
+          <h3><i class="fas fa-delta"></i> Delta</h3>
+          <p>Executor poderoso para dispositivos móveis com suporte completo para iOS e Android, interface touch-friendly</p>
         </div>
-      </div>
-      
-      <div class="card" onclick="location.href='Scripts.html'">
-        <img src="https://i.imgur.com/8zZ3H8F.png" alt="Scripts">
-        <div class="card-content">
-          <h3><i class="fas fa-file-code"></i> Scripts</h3>
-          <p>Coleção organizada de scripts por jogos</p>
-        </div>
-      </div>
-      
-      <div class="card" onclick="location.href='https://boxscripter.netlify.app/executores'">
-        <img src="https://i.imgur.com/3Z8JQKp.png" alt="Executores">
-        <div class="card-content">
-          <h3><i class="fas fa-rocket"></i> Executores</h3>
-          <p>Executores otimizados para PC e Mobile</p>
-        </div>
+        <a href="https://deltaexploits.gg/">
+          <i class="fas fa-external-link-alt"></i> Acessar Site
+        </a>
       </div>
     </div>
   </section>
 
   <footer>
-    © 2026 Box Scripter - Todos os direitos reservados
+    © 2025 Box Scripter - Todos os direitos reservados
   </footer>
 </body>
 </html>
