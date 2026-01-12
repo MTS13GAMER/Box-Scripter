@@ -13,199 +13,414 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #000;
       color: #f0f0f0;
-      padding: 20px;
+      overflow-x: hidden;
     }
 
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
+    /* Header */
     header {
-      text-align: center;
-      margin-bottom: 40px;
-      padding: 20px 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 80px;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.2);
     }
 
     .logo {
-      font-size: 3.5em;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 10px;
-      text-shadow: 0 0 15px rgba(120, 0, 255, 0.8);
-      background: linear-gradient(45deg, #fff, #c0c0c0);
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4);
+    }
+
+    .back-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.6);
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 120px 60px 60px;
+    }
+
+    /* Hero */
+    .page-hero {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .page-hero h1 {
+      font-size: 56px;
+      font-weight: 900;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #fff 0%, #a855f7 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .back-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: linear-gradient(45deg, #4a148c, #6a1b9a);
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
+    .page-hero p {
+      font-size: 20px;
+      color: #aaa;
+    }
+
+    /* Search Bar */
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto 50px;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 18px 25px 18px 55px;
+      background: rgba(26, 26, 26, 0.8);
+      border: 2px solid rgba(168, 85, 247, 0.3);
+      border-radius: 16px;
+      color: #fff;
+      font-size: 16px;
       transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      outline: none;
     }
 
-    .back-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(120, 0, 255, 0.5);
+    .search-box input:focus {
+      border-color: rgba(168, 85, 247, 0.6);
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
     }
 
+    .search-box i {
+      position: absolute;
+      left: 22px;
+      color: #a855f7;
+      font-size: 18px;
+    }
+
+    /* Section */
     .section {
-      background: rgba(20, 20, 20, 0.8);
-      border-radius: 15px;
-      padding: 25px;
-      border: 1px solid rgba(100, 100, 100, 0.2);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      margin-bottom: 30px;
+      background: linear-gradient(135deg, rgba(26, 26, 26, 0.6) 0%, rgba(13, 13, 13, 0.6) 100%);
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      margin-bottom: 40px;
+      backdrop-filter: blur(10px);
     }
 
     .section-title {
-      font-size: 1.8em;
-      margin-bottom: 20px;
-      color: #fff;
-      border-bottom: 2px solid rgba(120, 0, 255, 0.7);
-      padding-bottom: 10px;
+      font-size: 32px;
+      margin-bottom: 30px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(168, 85, 247, 0.3);
     }
 
+    /* Script Grid */
     .script-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+      margin-top: 25px;
     }
 
     .script-card {
-      background: rgba(30, 30, 30, 0.8);
-      border-radius: 10px;
-      padding: 20px;
-      border: 1px solid rgba(100, 100, 100, 0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
+      background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(20, 20, 20, 0.9) 100%);
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .script-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
 
     .script-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(120, 0, 255, 0.3);
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(168, 85, 247, 0.4);
+      border-color: rgba(168, 85, 247, 0.5);
+    }
+
+    .script-card:hover::before {
+      opacity: 1;
     }
 
     .script-card h3 {
       color: #fff;
-      margin-bottom: 10px;
-      font-size: 1.2em;
+      margin-bottom: 12px;
+      font-size: 22px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
     }
 
     .script-card p {
       color: rgba(200, 200, 200, 0.8);
-      font-size: 0.9em;
-      margin-bottom: 15px;
+      font-size: 15px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
     }
 
     .script-card .copy-btn {
-      background: rgba(120, 0, 255, 0.3);
+      background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
       border: none;
       color: white;
-      padding: 8px 12px;
-      border-radius: 5px;
+      padding: 12px 20px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 0.8em;
-      transition: background 0.3s;
+      font-size: 15px;
+      font-weight: 700;
+      transition: all 0.3s ease;
       width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 5px 15px rgba(168, 85, 247, 0.3);
     }
 
     .script-card .copy-btn:hover {
-      background: rgba(120, 0, 255, 0.5);
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5);
     }
 
+    .script-card .copy-btn:active {
+      transform: scale(0.98);
+    }
+
+    .script-card.hidden {
+      display: none;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+      font-size: 18px;
+      display: none;
+    }
+
+    .no-results i {
+      font-size: 64px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    /* Toast */
     .toast {
       position: fixed;
-      bottom: 20px;
+      bottom: 30px;
       left: 50%;
-      transform: translateX(-50%);
-      background: rgba(40, 40, 40, 0.9);
+      transform: translateX(-50%) translateY(100px);
+      background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
       color: white;
-      padding: 12px 25px;
-      border-radius: 8px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      z-index: 1000;
+      padding: 18px 35px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      z-index: 2000;
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(168, 85, 247, 0.5);
+      font-weight: 600;
+      font-size: 16px;
     }
 
     .toast.show {
       opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
+    .toast i {
+      margin-right: 10px;
+      color: #a855f7;
+    }
+
+    /* Footer */
     .footer {
-      margin-top: 50px;
+      margin-top: 60px;
       text-align: center;
-      color: rgba(150, 150, 150, 0.7);
-      font-size: 0.9em;
-      padding: 20px 0;
+      color: #666;
+      font-size: 15px;
+      padding: 30px 0;
+      border-top: 1px solid rgba(168, 85, 247, 0.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 0 30px;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .back-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+
+      .container {
+        padding: 100px 30px 40px;
+      }
+
+      .page-hero h1 {
+        font-size: 40px;
+      }
+
+      .page-hero p {
+        font-size: 16px;
+      }
+
+      .section {
+        padding: 30px 20px;
+      }
+
+      .section-title {
+        font-size: 24px;
+      }
+
+      .script-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
     }
   </style>
 </head>
 <body>
+  <header>
+    <div class="logo">Box Scripter</div>
+    <a class='back-btn' href='/'>
+      <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+  </header>
+
   <div class="container">
-    <header>
-      <div class="logo">Box Scripter - Scripts</div>
-      <a href="index.html" class="back-btn">
-        <i class="fas fa-arrow-left"></i> Voltar para o Início
-      </a>
-    </header>
+    <div class="page-hero">
+      <h1><i class="fas fa-file-code"></i> Scripts</h1>
+      <p>Coleção completa de scripts para Roblox</p>
+    </div>
+
+    <div class="search-container">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Buscar scripts...">
+      </div>
+    </div>
 
     <div class="section">
       <h2 class="section-title">Todos os Scripts</h2>
-      <div class="script-grid">
-        <div class="script-card">
-          <h3>Infinite Yield</h3>
-          <p>Admin commands para Roblox</p>
+      <div class="script-grid" id="scriptGrid">
+        <div class="script-card" data-name="infinite yield">
+          <h3><i class="fas fa-crown"></i> Infinite Yield</h3>
+          <p>Admin commands completo para Roblox com múltiplas funcionalidades</p>
           <button class="copy-btn" data-script="loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()">
             <i class="fas fa-copy"></i> Copiar Script
           </button>
         </div>
-        <div class="script-card">
-          <h3>Dark Hub</h3>
-          <p>Hub para vários jogos</p>
+        
+        <div class="script-card" data-name="dark hub">
+          <h3><i class="fas fa-moon"></i> Dark Hub</h3>
+          <p>Hub universal com suporte para vários jogos populares</p>
           <button class="copy-btn" data-script='loadstring(game:HttpGet("https://raw.githubusercontent.com/RandomAdamYT/DarkHub/master/Init", true))()'>
             <i class="fas fa-copy"></i> Copiar Script
           </button>
         </div>
-        <div class="script-card">
-          <h3>BoxBuh</h3>
-          <p>Script para diversos jogos</p>
+        
+        <div class="script-card" data-name="boxbuh">
+          <h3><i class="fas fa-box"></i> BoxBuh</h3>
+          <p>Script multifuncional para diversos jogos do Roblox</p>
           <button class="copy-btn" data-script='loadstring(game:HttpGet("https://raw.githubusercontent.com/MTS13GAMER/Box-Scripter/refs/heads/main/BoxBuh.lua"))()'>
             <i class="fas fa-copy"></i> Copiar Script
           </button>
         </div>
       </div>
+      <div class="no-results" id="noResults">
+        <i class="fas fa-search"></i>
+        <p>Nenhum script encontrado</p>
+      </div>
     </div>
 
     <div class="footer">
-      © 2025 Box Scripter
+      © 2025 Box Scripter - Todos os direitos reservados
     </div>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastText"></span>
+  </div>
 
   <script>
-    // Função para mostrar notificação
+    // Toast
     function showToast(message) {
       const toast = document.getElementById('toast');
-      toast.textContent = message;
+      const toastText = document.getElementById('toastText');
+      toastText.textContent = message;
       toast.classList.add('show');
       
       setTimeout(() => {
@@ -213,7 +428,7 @@
       }, 3000);
     }
 
-    // Função para copiar texto para a área de transferência
+    // Copy to clipboard
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
         showToast('Script copiado para a área de transferência!');
@@ -223,12 +438,38 @@
       });
     }
 
-    // Adicionar event listeners para os botões de cópia
+    // Copy buttons
     document.querySelectorAll('.copy-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const script = btn.getAttribute('data-script');
         copyToClipboard(script);
       });
+    });
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    const scriptCards = document.querySelectorAll('.script-card');
+    const noResults = document.getElementById('noResults');
+
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      scriptCards.forEach(card => {
+        const cardName = card.getAttribute('data-name').toLowerCase();
+        if (cardName.includes(searchTerm)) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (visibleCount === 0) {
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+      }
     });
   </script>
 </body>
