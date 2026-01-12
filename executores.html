@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Box Scripter - Executores</title>
+  <title>Box Scripter | Executores</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     * {
       margin: 0;
@@ -13,166 +14,170 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #f0f0f0;
-      padding: 20px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #000;
+      color: #fff;
     }
 
     header {
-      text-align: center;
-      margin-bottom: 40px;
-      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(0, 0, 0, 0.85);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .logo {
-      font-size: 3.5em;
+      font-size: 1.8em;
       font-weight: bold;
+      color: #a855f7;
+    }
+
+    .nav a {
       color: #fff;
-      margin-bottom: 10px;
-      text-shadow: 0 0 15px rgba(120, 0, 255, 0.8);
-      background: linear-gradient(45deg, #fff, #c0c0c0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .back-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: linear-gradient(45deg, #4a148c, #6a1b9a);
-      color: white;
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      margin-left: 20px;
+      font-weight: 500;
+      transition: color 0.3s;
     }
 
-    .back-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(120, 0, 255, 0.5);
+    .nav a:hover {
+      color: #a855f7;
+    }
+
+    .hero {
+      height: 60vh;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3), #000),
+                  radial-gradient(circle at top, #4c1d95, #000 70%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 60px;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      max-width: 500px;
+      color: #ccc;
     }
 
     .section {
-      background: rgba(20, 20, 20, 0.8);
-      border-radius: 15px;
-      padding: 25px;
-      border: 1px solid rgba(100, 100, 100, 0.2);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      margin-bottom: 30px;
+      padding: 40px 40px 10px;
     }
 
-    .section-title {
-      font-size: 1.8em;
-      margin-bottom: 20px;
-      color: #fff;
-      border-bottom: 2px solid rgba(120, 0, 255, 0.7);
-      padding-bottom: 10px;
-    }
-
-    .executor-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .executor-card {
-      background: rgba(30, 30, 30, 0.8);
-      border-radius: 10px;
-      padding: 20px;
-      border: 1px solid rgba(100, 100, 100, 0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-align: center;
-    }
-
-    .executor-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(120, 0, 255, 0.3);
-    }
-
-    .executor-card h3 {
-      color: #fff;
-      margin-bottom: 10px;
-      font-size: 1.2em;
-    }
-
-    .executor-card p {
-      color: rgba(200, 200, 200, 0.8);
-      font-size: 0.9em;
+    .section h2 {
+      font-size: 1.4em;
       margin-bottom: 15px;
     }
 
-    .executor-card .download-btn {
-      display: inline-block;
-      background: rgba(120, 0, 255, 0.3);
-      color: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      text-decoration: none;
+    .row {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding-bottom: 20px;
+    }
+
+    .card {
+      min-width: 260px;
+      height: 160px;
+      background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
+    }
+
+    .card h3 {
+      font-size: 1.2em;
+    }
+
+    .card p {
       font-size: 0.9em;
+      color: #bbb;
+    }
+
+    .card a {
+      align-self: flex-start;
+      padding: 8px 14px;
+      background: #7c3aed;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.85em;
+      font-weight: 600;
       transition: background 0.3s;
     }
 
-    .executor-card .download-btn:hover {
-      background: rgba(120, 0, 255, 0.5);
+    .card a:hover {
+      background: #a855f7;
     }
 
-    .footer {
-      margin-top: 50px;
+    footer {
       text-align: center;
-      color: rgba(150, 150, 150, 0.7);
-      font-size: 0.9em;
-      padding: 20px 0;
+      padding: 30px;
+      color: #777;
+      font-size: 0.85em;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="logo">Box Scripter - Executores</div>
-      <a href="index.html" class="back-btn">
-        <i class="fas fa-arrow-left"></i> Voltar para o Início
-      </a>
-    </header>
 
-    <div class="section">
-      <h2 class="section-title">Executores para PC</h2>
-      <div class="executor-grid">
-        <div class="executor-card">
-          <h3>Box Exploit</h3>
-          <p>Executor para PC</p>
-          <a href="https://github.com/MTS13GAMER/Box-Scripter/releases/download/exploit/Box.Exploit.rar" class="download-btn">
-            <i class="fas fa-download"></i> Baixar
-          </a>
-        </div>
+  <header>
+    <div class="logo">Box Scripter</div>
+    <nav class="nav">
+      <a href="index.html">Início</a>
+      <a href="https://boxscripter.netlify.app/executores">Executores</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Executores</h1>
+    <p>Os melhores executores para PC e Mobile, organizados em um só lugar.</p>
+  </section>
+
+  <section class="section">
+    <h2>Executores para PC</h2>
+    <div class="row">
+      <div class="card">
+        <h3>Box Exploit</h3>
+        <p>Executor exclusivo para PC</p>
+        <a href="https://github.com/MTS13GAMER/Box-Scripter/releases/download/exploit/Box.Exploit.rar">
+          <i class="fas fa-download"></i> Baixar
+        </a>
       </div>
     </div>
+  </section>
 
-    <div class="section">
-      <h2 class="section-title">Executores para Mobile</h2>
-      <div class="executor-grid">
-        <div class="executor-card">
-          <h3>Delta</h3>
-          <p>Executor para dispositivos móveis</p>
-          <a href="https://deltaexploits.gg/" class="download-btn">
-            <i class="fas fa-external-link-alt"></i> Acessar
-          </a>
-        </div>
+  <section class="section">
+    <h2>Executores para Mobile</h2>
+    <div class="row">
+      <div class="card">
+        <h3>Delta</h3>
+        <p>Executor para dispositivos móveis</p>
+        <a href="https://deltaexploits.gg/">
+          <i class="fas fa-external-link-alt"></i> Acessar
+        </a>
       </div>
     </div>
+  </section>
 
-    <div class="footer">
-      © 2025
+  <footer>
+    © 2025 Box Scripter
+  </footer>
+
+</body>
+</html>
