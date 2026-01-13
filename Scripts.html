@@ -1,216 +1,385 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BoxBush Scripts</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Box Scripter | Executores</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:Inter;
-  background:#000;
-  color:#fff;
-}
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 80px;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+    }
 
-/* HEADER */
-header{
-  position:fixed;
-  top:0;
-  width:100%;
-  height:80px;
-  background:rgba(0,0,0,.95);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(168,85,247,.25);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 60px;
-  z-index:1000;
-}
+    .logo {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
 
-.logo{
-  font-size:30px;
-  font-weight:800;
-  background:linear-gradient(135deg,#a855f7,#ec4899);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+    .nav {
+      display: flex;
+      gap: 35px;
+    }
 
-/* TABS TOP */
-.tabs{
-  display:flex;
-  gap:35px;
-}
+    .nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 8px 0;
+    }
 
-.tab{
-  cursor:pointer;
-  font-weight:600;
-  position:relative;
-  padding-bottom:6px;
-}
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #a855f7, #ec4899);
+      transition: width 0.3s ease;
+    }
 
-.tab.active{
-  color:#a855f7;
-}
+    .nav a:hover {
+      color: #a855f7;
+    }
 
-.tab::after{
-  content:'';
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:0;
-  height:2px;
-  background:linear-gradient(90deg,#a855f7,#ec4899);
-  transition:.3s;
-}
+    .nav a:hover::after {
+      width: 100%;
+    }
 
-.tab.active::after{width:100%}
+    /* Hero */
+    .hero {
+      height: 50vh;
+      min-height: 400px;
+      background: 
+        linear-gradient(to bottom, rgba(0,0,0,0.5), #000),
+        radial-gradient(ellipse at top, rgba(168, 85, 247, 0.4) 0%, rgba(0,0,0,0) 70%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 60px;
+      text-align: center;
+      margin-top: 80px;
+      animation: fadeIn 1s ease;
+    }
 
-/* CONTAINER */
-.container{
-  max-width:1400px;
-  margin:auto;
-  padding:130px 60px 60px;
-}
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
-/* SUBTITLE */
-.subtitle{
-  font-size:26px;
-  margin-bottom:30px;
-  background:linear-gradient(135deg,#fff,#a855f7);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+    .hero h1 {
+      font-size: 64px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: slideDown 0.8s ease;
+    }
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-  gap:25px;
-}
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-.card{
-  background:#111;
-  border-radius:18px;
-  padding:28px;
-  border:1px solid rgba(168,85,247,.25);
-  transition:.35s;
-}
+    .hero p {
+      max-width: 600px;
+      color: #ccc;
+      font-size: 20px;
+      line-height: 1.6;
+      animation: slideUp 0.8s ease;
+    }
 
-.card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 20px 40px rgba(168,85,247,.35);
-}
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-.card h3{margin-bottom:10px}
-.card p{color:#aaa;margin-bottom:18px}
+    /* Section */
+    .section {
+      padding: 60px 60px 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
 
-button{
-  width:100%;
-  padding:13px;
-  border:none;
-  border-radius:10px;
-  background:linear-gradient(135deg,#a855f7,#ec4899);
-  color:#fff;
-  font-weight:700;
-  cursor:pointer;
-}
+    .section h2 {
+      font-size: 36px;
+      margin-bottom: 30px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-.hidden{display:none}
+    /* Row */
+    .row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+      padding-bottom: 30px;
+    }
 
-.load-more{
-  margin-top:40px;
-  max-width:300px;
-}
-</style>
+    /* Card */
+    .card {
+      background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(13, 13, 13, 0.9) 100%);
+      border-radius: 20px;
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(168, 85, 247, 0.5);
+      border-color: rgba(168, 85, 247, 0.5);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card h3 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .card h3 i {
+      margin-right: 12px;
+      background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card p {
+      font-size: 16px;
+      color: #bbb;
+      line-height: 1.6;
+    }
+
+    .card a {
+      align-self: flex-start;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .card a:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.6);
+    }
+
+    .card a:active {
+      transform: scale(0.98);
+    }
+
+    /* Platform Badge */
+    .platform-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(168, 85, 247, 0.2);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #a855f7;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 50px 20px;
+      color: #666;
+      font-size: 15px;
+      border-top: 1px solid rgba(168, 85, 247, 0.1);
+      margin-top: 40px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 0 30px;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .nav {
+        gap: 20px;
+      }
+
+      .nav a {
+        font-size: 14px;
+      }
+
+      .hero {
+        padding: 0 30px;
+        height: 40vh;
+        min-height: 350px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .section {
+        padding: 40px 30px 20px;
+      }
+
+      .section h2 {
+        font-size: 28px;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .card {
+        padding: 28px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <div class="logo">Box Scripter</div>
+    <nav class="nav">
+      <a href='/'><i class="fas fa-home"></i> Início</a>
+      <a href="https://boxscripter.netlify.app/executores"><i class="fas fa-rocket"></i> Executores</a>
+    </nav>
+  </header>
 
-<header>
-  <div class="logo">BoxBush</div>
-  <div class="tabs">
-    <div class="tab active" data-tab="top">Scripts Top</div>
-    <div class="tab" data-tab="all">Scripts ALL</div>
-  </div>
-</header>
+  <section class="hero">
+    <h1><i class="fas fa-rocket"></i> Executores</h1>
+    <p>Os melhores executores para PC e Mobile, cuidadosamente selecionados e organizados para você.</p>
+  </section>
 
-<div class="container">
-
-  <!-- SCRIPTS TOP -->
-  <div id="top">
-    <div class="subtitle">BoxBush</div>
-
-    <div class="grid">
+  <section class="section">
+    <h2><i class="fas fa-desktop"></i> Executores para PC</h2>
+    <div class="row">
       <div class="card">
-        <h3>BoxBush Hub</h3>
-        <p>Hub oficial BoxBush</p>
-        <button data-script="loadstring(game:HttpGet('https://boxbushhub.com/main.lua',true))()">Copiar</button>
+        <div class="card-content">
+          <div class="platform-badge"><i class="fas fa-windows"></i> Windows</div>
+          <h3><i class="fas fa-box"></i> Box Exploit</h3>
+          <p>Executor exclusivo e otimizado para PC com interface moderna e recursos avançados para melhor experiência</p>
+        </div>
+        <a href="https://www.mediafire.com/file/x27lvitwqs70afq/BoxExploit.zip/file">
+          <i class="fas fa-download"></i> Baixar Executor
+        </a>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- SCRIPTS ALL -->
-  <div id="all" class="hidden">
-    <div class="subtitle">Scripts da Comunidade</div>
-
-    <div class="grid" id="apiGrid"></div>
-
-    <div class="load-more">
-      <button id="loadMore">Carregar mais</button>
+  <section class="section">
+    <h2><i class="fas fa-mobile-alt"></i> Executores para Mobile</h2>
+    <div class="row">
+      <div class="card">
+        <div class="card-content">
+          <div class="platform-badge"><i class="fas fa-mobile-alt"></i> iOS & Android</div>
+          <h3><i class="fas fa-delta"></i> Delta</h3>
+          <p>Executor poderoso para dispositivos móveis com suporte completo para iOS e Android, interface touch-friendly</p>
+        </div>
+        <a href="https://deltaexploits.gg/">
+          <i class="fas fa-external-link-alt"></i> Acessar Site
+        </a>
+      </div>
     </div>
-  </div>
+  </section>
 
-</div>
-
-<script>
-let page = 1
-const grid = document.getElementById("apiGrid")
-
-async function loadScripts(){
-  const url = `https://api.allorigins.win/raw?url=https://scriptblox.com/api/script/search?q=xeno&page=${page}`
-  const res = await fetch(url)
-  const data = await res.json()
-
-  data.result.scripts.forEach(s=>{
-    const c=document.createElement("div")
-    c.className="card"
-    c.innerHTML=`
-      <h3>${s.title}</h3>
-      <p>${s.game?.name || "Universal"}</p>
-      <button data-script="${s.script.replace(/"/g,'&quot;')}">Copiar</button>
-    `
-    grid.appendChild(c)
-  })
-
-  page++
-}
-
-loadScripts()
-document.getElementById("loadMore").onclick = loadScripts
-
-document.body.addEventListener("click",e=>{
-  if(e.target.dataset.script){
-    navigator.clipboard.writeText(e.target.dataset.script)
-    e.target.innerText="Copiado!"
-    setTimeout(()=>e.target.innerText="Copiar",2000)
-  }
-})
-
-document.querySelectorAll(".tab").forEach(t=>{
-  t.onclick=()=>{
-    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"))
-    t.classList.add("active")
-
-    document.getElementById("top").classList.toggle("hidden",t.dataset.tab!=="top")
-    document.getElementById("all").classList.toggle("hidden",t.dataset.tab!=="all")
-  }
-})
-</script>
-
+  <footer>
+    © 2026 Box Scripter - Todos os direitos reservados
+  </footer>
 </body>
 </html>
