@@ -3,39 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Box Scripter</title>
+<title>BoxBush Scripts</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Segoe UI;background:#000;color:#fff}
-
-header{
-  height:80px;
+body{
+  font-family:Inter;
   background:#000;
-  border-bottom:1px solid rgba(168,85,247,.3);
+  color:#fff;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:80px;
+  background:rgba(0,0,0,.95);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(168,85,247,.25);
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 60px;
+  z-index:1000;
 }
 
 .logo{
   font-size:30px;
-  font-weight:900;
+  font-weight:800;
   background:linear-gradient(135deg,#a855f7,#ec4899);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
-.container{padding:60px;max-width:1400px;margin:auto}
-
-/* TABS */
+/* TABS TOP */
 .tabs{
   display:flex;
-  gap:25px;
-  margin-bottom:40px;
+  gap:35px;
 }
 
 .tab{
@@ -62,26 +70,48 @@ header{
 
 .tab.active::after{width:100%}
 
+/* CONTAINER */
+.container{
+  max-width:1400px;
+  margin:auto;
+  padding:130px 60px 60px;
+}
+
+/* SUBTITLE */
+.subtitle{
+  font-size:26px;
+  margin-bottom:30px;
+  background:linear-gradient(135deg,#fff,#a855f7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
 /* GRID */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
   gap:25px;
 }
 
 .card{
   background:#111;
-  border-radius:16px;
-  padding:25px;
-  border:1px solid rgba(168,85,247,.2);
+  border-radius:18px;
+  padding:28px;
+  border:1px solid rgba(168,85,247,.25);
+  transition:.35s;
 }
 
-.card h3{margin-bottom:8px}
-.card p{color:#aaa;margin-bottom:15px}
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 20px 40px rgba(168,85,247,.35);
+}
+
+.card h3{margin-bottom:10px}
+.card p{color:#aaa;margin-bottom:18px}
 
 button{
   width:100%;
-  padding:12px;
+  padding:13px;
   border:none;
   border-radius:10px;
   background:linear-gradient(135deg,#a855f7,#ec4899);
@@ -93,7 +123,7 @@ button{
 .hidden{display:none}
 
 .load-more{
-  margin:40px auto 0;
+  margin-top:40px;
   max-width:300px;
 }
 </style>
@@ -103,66 +133,68 @@ button{
 
 <header>
   <div class="logo">BoxBush</div>
+  <div class="tabs">
+    <div class="tab active" data-tab="top">Scripts Top</div>
+    <div class="tab" data-tab="all">Scripts ALL</div>
+  </div>
 </header>
 
 <div class="container">
 
-  <div class="tabs">
-    <div class="tab active" data-tab="top">Scripts Top</div>
-    <div class="tab" data-tab="all">Scripts</div>
-  </div>
-
   <!-- SCRIPTS TOP -->
-  <div id="top" class="grid">
-    <div class="card">
-      <h3>BoxBush Hub</h3>
-      <p>Hub oficial BoxBush</p>
-      <button data-script="loadstring(game:HttpGet('https://boxbushhub.com/main.lua',true))()">Copiar</button>
+  <div id="top">
+    <div class="subtitle">BoxBush</div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>BoxBush Hub</h3>
+        <p>Hub oficial BoxBush</p>
+        <button data-script="loadstring(game:HttpGet('https://boxbushhub.com/main.lua',true))()">Copiar</button>
+      </div>
     </div>
   </div>
 
-  <!-- SCRIPTS API -->
-  <div id="all" class="grid hidden"></div>
+  <!-- SCRIPTS ALL -->
+  <div id="all" class="hidden">
+    <div class="subtitle">Scripts da Comunidade</div>
 
-  <div class="load-more hidden" id="loadMore">
-    <button>Carregar mais</button>
+    <div class="grid" id="apiGrid"></div>
+
+    <div class="load-more">
+      <button id="loadMore">Carregar mais</button>
+    </div>
   </div>
 
 </div>
 
 <script>
 let page = 1
-const grid = document.getElementById("all")
-const loadBtn = document.getElementById("loadMore")
+const grid = document.getElementById("apiGrid")
 
 async function loadScripts(){
-  loadBtn.classList.add("hidden")
-
   const url = `https://api.allorigins.win/raw?url=https://scriptblox.com/api/script/search?q=xeno&page=${page}`
   const res = await fetch(url)
   const data = await res.json()
 
   data.result.scripts.forEach(s=>{
-    const div = document.createElement("div")
-    div.className="card"
-    div.innerHTML=`
+    const c=document.createElement("div")
+    c.className="card"
+    c.innerHTML=`
       <h3>${s.title}</h3>
       <p>${s.game?.name || "Universal"}</p>
       <button data-script="${s.script.replace(/"/g,'&quot;')}">Copiar</button>
     `
-    grid.appendChild(div)
+    grid.appendChild(c)
   })
 
-  loadBtn.classList.remove("hidden")
   page++
 }
 
 loadScripts()
-
-loadBtn.onclick = loadScripts
+document.getElementById("loadMore").onclick = loadScripts
 
 document.body.addEventListener("click",e=>{
-  if(e.target.tagName==="BUTTON" && e.target.dataset.script){
+  if(e.target.dataset.script){
     navigator.clipboard.writeText(e.target.dataset.script)
     e.target.innerText="Copiado!"
     setTimeout(()=>e.target.innerText="Copiar",2000)
@@ -176,7 +208,6 @@ document.querySelectorAll(".tab").forEach(t=>{
 
     document.getElementById("top").classList.toggle("hidden",t.dataset.tab!=="top")
     document.getElementById("all").classList.toggle("hidden",t.dataset.tab!=="all")
-    loadBtn.classList.toggle("hidden",t.dataset.tab!=="all")
   }
 })
 </script>
