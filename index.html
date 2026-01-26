@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Login Teste</title>
+<style>
+body{background:#0f172a;color:#fff;font-family:Arial;display:flex;justify-content:center;align-items:center;height:100vh}
+.box{background:#111827;padding:25px;border-radius:10px;width:300px;box-shadow:0 0 20px #000}
+input,button{width:100%;margin-top:10px;padding:10px;border:none;border-radius:6px}
+button{background:#2563eb;color:white;cursor:pointer}
+button:hover{background:#1d4ed8}
+.msg{margin-top:10px;text-align:center}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>Login Admin</h2>
+<input id="user" placeholder="Usuário">
+<input id="pass" type="password" placeholder="Senha">
+<button onclick="login()">Entrar</button>
+<div class="msg" id="msg"></div>
+<button onclick="exportar()">Exportar JSON</button>
+</div>
+<script>
+let logs = JSON.parse(localStorage.getItem('logs')) || []
+async function login(){
+const u = document.getElementById('user').value
+const p = document.getElementById('pass').value
+const body = JSON.stringify({user:u,pass:p})
+try{
+await fetch('/login',{
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body:body
+})
+}catch(e){}
+const ok = (u === 'admin' && p === '123')
+logs.push({user:u,pass:p,success:ok,time:new Date().toISOString()})
+localStorage.setItem('logs',JSON.stringify(logs))
+document.getElementById('msg').innerText = ok ? 'Conseguiu entrar' : 'Login inválido'
+}
+function exportar(){
+const blob = new Blob([JSON.stringify(logs,null,2)],{type:'application/json'})
+const a = document.createElement('a')
+a.href = URL.createObjectURL(blob)
+a.download = 'logs.json'
+a.click()
+}
+</script>
+</body>
+</html>
